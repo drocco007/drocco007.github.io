@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Pushy Postgres and Python</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #dddddd; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; }
+code > span.dt { color: #800000; }
+code > span.dv { color: #0000ff; }
+code > span.bn { color: #0000ff; }
+code > span.fl { color: #800080; }
+code > span.ch { color: #ff00ff; }
+code > span.st { color: #dd0000; }
+code > span.co { color: #808080; font-style: italic; }
+code > span.al { color: #00ff00; font-weight: bold; }
+code > span.fu { color: #000080; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Pushy Postgres and Python</h1>
+    <h3 class="date"></h3>
+</section>
+
+<section class="slide level1">
+
+<!--% Daniel Rocco
+% BrightLink Technology
+-->
+
+</section>
+<section id="tldr" class="slide level1">
+<h1>tl;dr</h1>
+<p>Use Postgres?</p>
+<p>Get a distributed message broker for free!</p>
+<p>❦,</p>
+<p><code>@drocco007</code></p>
+</section>
+<section id="typical-db-usage-demand" class="slide level1">
+<h1>Typical DB usage: demand</h1>
+</section>
+<section id="ubiquitous-connectivity" class="slide level1">
+<h1>Ubiquitous Connectivity</h1>
+<p>“Don’t call us, we’ll call you.”</p>
+</section>
+<section id="sql" class="slide level1">
+<h1>SQL?</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">while</span> <span class="ot">True</span>:
+    db.execute(<span class="st">&#39;SELECT are_we &#39;</span>
+               <span class="co">&#39;FROM there_yet;&#39;</span>)
+    sleep(<span class="dv">10</span>)</code></pre>
+</section>
+<section id="just-imagine" class="slide level1">
+<h1>Just imagine…</h1>
+</section>
+<section id="section" class="slide level1" data-background="static/images/server_meltdown.png">
+<h1></h1>
+<!-- -->
+
+
+</section>
+<section id="false-dichotomy" class="slide level1">
+<h1>False Dichotomy</h1>
+<figure>
+<img src="static/images/confusion.jpg" alt="responsiveness ⇅ system health" /><figcaption>responsiveness ⇅ system health</figcaption>
+</figure>
+</section>
+<section id="are-you-watching-closely" class="slide level1">
+<h1>Are you watching closely?</h1>
+<p>subject → observer<br /> ↘<br /> observer<br /> …</p>
+</section>
+<section id="e.g.-ui" class="slide level1">
+<h1>E.g. UI</h1>
+<p>click button</p>
+<ul>
+<li class="fragment">A/B usage tracker</li>
+<li class="fragment">Analytics collector</li>
+<li class="fragment">Form validator</li>
+<li class="fragment">Submit handler</li>
+<li class="fragment">…</li>
+</ul>
+<!-- end of list -->
+
+<pre><code>$(&quot;#action-btn&quot;).on(&quot;click&quot;, …)</code></pre>
+</section>
+<section id="e.g.-django" class="slide level1">
+<h1>E.g. Django</h1>
+<pre><code>auth.user_logged_in</code></pre>
+</section>
+<section id="e.g.-sqlalchemy" class="slide level1">
+<h1>E.g. SQLAlchemy</h1>
+</section>
+<section id="tradeoffs" class="slide level1">
+<h1>Tradeoffs</h1>
+</section>
+<section id="section-1" class="slide level1">
+<h1>* * *</h1>
+</section>
+<section id="postgresql-notifylisten" class="slide level1">
+<h1>PostgreSQL: NOTIFY/LISTEN</h1>
+</section>
+<section id="channeling" class="slide level1">
+<h1>Channeling</h1>
+<pre class="sourceCode sql"><code class="sourceCode sql">LISTEN anything_good_on_this</code></pre>
+</section>
+<section id="message-for-you-sir" class="slide level1">
+<h1>“Message for you, sir!”</h1>
+<pre class="sourceCode sql"><code class="sourceCode sql">NOTIFY arthur_king_of_the_britons, <span class="st">&#39;ARROWED!&#39;</span></code></pre>
+</section>
+<section id="psql-notifylisten" class="slide level1">
+<h1>psql NOTIFY/LISTEN</h1>
+<iframe src="pg.html" width="1024" height="585" style="overflow: hidden"></iframe>
+
+</section>
+<section id="transaction-interaction" class="slide level1">
+<h1>Transaction Interaction</h1>
+<pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">BEGIN</span>;
+NOTIFY unspeakable_thoughts, <span class="st">&#39;I</span><span class="ch">&#39;&#39;</span><span class="st">m reluctant to tell you this…&#39;</span>
+<span class="kw">ROLLBACK</span>;</code></pre>
+</section>
+<section id="transaction-interaction-1" class="slide level1">
+<h1>Transaction Interaction</h1>
+<pre class="sourceCode sql"><code class="sourceCode sql">LISTEN im_sorry_did_you_say_something;
+
+<span class="kw">BEGIN</span>;
+
+<span class="co">-- NOTIFY posted here</span>
+
+<span class="kw">SELECT</span> some_data <span class="kw">FROM</span> this_monster_view;
+<span class="kw">UPDATE</span> table_with_a_zillion_indexes…;
+
+<span class="kw">COMMIT</span>;
+
+<span class="co">-- message delivered here</span></code></pre>
+</section>
+<section id="typical" class="slide level1">
+<h1>Typical…</h1>
+<pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> new_user_handler() RETURNS <span class="kw">TRIGGER</span> <span class="kw">AS</span> $$
+<span class="kw">BEGIN</span>
+    <span class="kw">EXECUTE</span> <span class="st">&#39;NOTIFY new_user;&#39;</span>;
+    <span class="kw">RETURN</span> <span class="kw">NULL</span>;
+<span class="kw">END</span>;
+$$ LANGUAGE plpgsql;
+
+<span class="kw">CREATE</span> <span class="kw">TRIGGER</span> app_user_trigger
+<span class="kw">AFTER</span> <span class="kw">INSERT</span> <span class="kw">ON</span> app_user
+      <span class="kw">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span> <span class="kw">EXECUTE</span> <span class="kw">PROCEDURE</span> new_user_handler();</code></pre>
+</section>
+<section id="goals" class="slide level1" data-background="#090b32">
+<h1>Goals</h1>
+<figure>
+<img src="static/images/funny-rhino-unicorn-treadmill.jpg" />
+</figure>
+</section>
+<section id="why-other_tech" class="slide level1">
+<h1>Why [ ! $OTHER_TECH ]</h1>
+<figure>
+<img src="static/images/funny-computers-tower-sculpture.jpg" alt="DevOps has work to do. Duh." /><figcaption>DevOps has work to do. Duh.</figcaption>
+</figure>
+</section>
+<section id="data-proximity" class="slide level1">
+<h1>Data Proximity</h1>
+<p>Dovetail with TRIGGER</p>
+</section>
+<section id="approach" class="slide level1">
+<h1>Approach</h1>
+</section>
+<section id="trigger-happy" class="slide level1">
+<h1>Trigger Happy</h1>
+<pre class="sourceCode sql"><code class="sourceCode sql"><span class="kw">CREATE</span> <span class="kw">FUNCTION</span> job_queued_handler() RETURNS <span class="kw">TRIGGER</span> <span class="kw">AS</span> $$
+<span class="kw">BEGIN</span>
+    <span class="kw">EXECUTE</span> <span class="st">&#39;NOTIFY job_queued, </span><span class="ch">&#39;&#39;</span><span class="st">&#39;</span> || NEW.queue_name || <span class="st">&#39;</span><span class="ch">&#39;&#39;</span><span class="st">;&#39;</span>;
+    <span class="kw">RETURN</span> <span class="kw">NULL</span>;
+<span class="kw">END</span>;
+$$ LANGUAGE plpgsql;
+
+<span class="kw">CREATE</span> <span class="kw">TRIGGER</span> job_queued_trigger
+<span class="kw">AFTER</span> <span class="kw">INSERT</span> <span class="kw">ON</span> job_queue
+      <span class="kw">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span> <span class="kw">EXECUTE</span> <span class="kw">PROCEDURE</span> job_queued_handler();</code></pre>
+</section>
+<section id="foo" class="slide level1" data-background="http://rack.0.mshcdn.com/media/ZgkyMDEyLzEyLzA0LzE1L25hc2FjYXB0dXJlLjVOaC5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/c3fd4db9/b06/nasa-captures-epic-eruption-from-surface-of-sun-pics--f28a2fd11f.jpg">
+<h1>Foo</h1>
+<ul>
+<li class="fragment">a</li>
+<li class="fragment">s</li>
+</ul>
+</section>
+<section id="yes" class="slide level1">
+<h1>YES</h1>
+<ul>
+<li class="fragment">a</li>
+<li class="fragment">s</li>
+</ul>
+</section>
+<section id="no" class="slide level1">
+<h1>No?</h1>
+<ul>
+<li class="fragment">Maybe?</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'moon', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  </body>
+</html>

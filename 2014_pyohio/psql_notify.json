@@ -1,0 +1,1396 @@
+{
+  "events": [
+    {
+      "act": "OPEN",
+      "size": [
+        80,
+        24
+      ],
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.013757944107055664
+    },
+    {
+      "act": "WRITE",
+      "data": "(talks)\u001b[0m \u001b[0;33m~/source/talks/2014_pyohio\u001b[0m\u001b[0m\u001b]0;~/source/talks/2014_pyohio\u0007$ ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "ECHO",
+      "data": "tmus",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u007f",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\b\u001b[K",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "ECHO",
+      "data": "x",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\r\n",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[?1049h\u001b(B\u001b[m\u001b[?1l\u001b>\u001b[H\u001b[2J\u001b[?12l\u001b[?25h\u001b[?1000l\u001b[?1006l\u001b[?1005l\u001b[c\u001b[>4;1m\u001b[?1004h\u001b]112\u0007\u001b[?25l\u001b[1;1H\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:bash*                                           \"dan-xps2\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[24;1H\u001b[1;24r\u001b[H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u001b",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "[",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "?",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "6",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "2",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": ";",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "9",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": ";",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "c",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.2046980857849121
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;23r\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ \u001b[?25l\u001b[24;1H\u001b[30m\u001b[42m[3] 0:bash*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[24;1H\u001b[1;24r\u001b[H\u001b[28C\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u0002",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\"",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[12;1H\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[32m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[?25l\u001b[1;1H\u001b(B\u001b[m\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[2B\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:bash*                                           \"dan-xps2\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[13;1H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.26631808280944824
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13d\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ \u001b[?25l\u001b[24;1H\u001b[30m\u001b[42m[3] 0:bash*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[24;1H\u001b[1;24r\u001b[H\u001b[13;29H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u0002",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[32m\u001b[12;1H\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[?25l\u001b[1;1H\u001b(B\u001b[m\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[2B\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:bash*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[1;29H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "p",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[H\u001b[K\u001b[1;11r\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ \u001b[1;24r\u001b[H\u001b[28C\u001b[1;11r\u001b[H\u001b[28Cp\u001b[1;24r\u001b[H\u001b[29C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[29Cs\u001b[1;24r\u001b[H\u001b[30C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "q",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[30Cq\u001b[1;24r\u001b[H\u001b[31C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "l",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[31Cl\u001b[1;24r\u001b[H\u001b[32C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[32C \u001b[1;24r\u001b[H\u001b[33C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "p",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[33Cp\u001b[1;24r\u001b[H\u001b[34C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[34Co\u001b[1;24r\u001b[H\u001b[35C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[35Cs\u001b[1;24r\u001b[H\u001b[36C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "t",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[36Ct\u001b[1;24r\u001b[H\u001b[37C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "g",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[37Cg\u001b[1;24r\u001b[H\u001b[38C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[38Cr\u001b[1;24r\u001b[H\u001b[39C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "e",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[39Ce\u001b[1;24r\u001b[H\u001b[40C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[40Cs\u001b[1;24r\u001b[H\u001b[41C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\r\n",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.06454586982727051
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\r\npsql (9.3.4)\r\nType \"help\" for help.\u001b[1;24r\u001b[H\u001b[3;22H\u001b[5;1H\u001b[1;11r\u001b[H\u001b[4Bpostgres=> \u001b[1;24r\u001b[H\u001b[5;12H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.306812047958374
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[?25l\u001b[24;1H\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[5;12H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u0002",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[12;1H\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[32m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[?25l\u001b[1;1H\u001b(B\u001b[m\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[2B\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[13;29H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.09363794326782227
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[?25l\u001b[24;1H\u001b[30m\u001b[42m[3] 0:bash*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[13;29H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "p",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;29Hp\u001b[1;24r\u001b[H\u001b[13;30H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;30Hs\u001b[1;24r\u001b[H\u001b[13;31H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "q",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;31Hq\u001b[1;24r\u001b[H\u001b[13;32H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "l",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;32Hl\u001b[1;24r\u001b[H\u001b[13;33H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;33H \u001b[1;24r\u001b[H\u001b[13;34H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "p",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;34Hp\u001b[1;24r\u001b[H\u001b[13;35H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;35Ho\u001b[1;24r\u001b[H\u001b[13;36H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;36Hs\u001b[1;24r\u001b[H\u001b[13;37H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "t",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;37Ht\u001b[1;24r\u001b[H\u001b[13;38H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "g",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;38Hg\u001b[1;24r\u001b[H\u001b[13;39H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;39Hr\u001b[1;24r\u001b[H\u001b[13;40H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "e",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;40He\u001b[1;24r\u001b[H\u001b[13;41H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[13;41Hs\u001b[1;24r\u001b[H\u001b[13;42H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\r\n",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.06969594955444336
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[14dpsql (9.3.4)\r\nType \"help\" for help.\u001b[1;24r\u001b[H\u001b[17d\u001b[13;23r\u001b[H\u001b[17dpostgres=> \u001b[1;24r\u001b[H\u001b[17;12H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.10491085052490234
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[?25l\u001b[24;1H\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[17;12H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u0002",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[32m\u001b[12;1H\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[?25l\u001b[1;1H\u001b(B\u001b[m\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[2B\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[5;12H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "L",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;12HL\u001b[1;24r\u001b[H\u001b[5;13H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "I",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;13HI\u001b[1;24r\u001b[H\u001b[5;14H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "S",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;14HS\u001b[1;24r\u001b[H\u001b[5;15H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "T",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;15HT\u001b[1;24r\u001b[H\u001b[5;16H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "E",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;16HE\u001b[1;24r\u001b[H\u001b[5;17H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "N",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;17HN\u001b[1;24r\u001b[H\u001b[5;18H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;18H \u001b[1;24r\u001b[H\u001b[5;19H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "P",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;19HP\u001b[1;24r\u001b[H\u001b[5;20H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "y",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;20Hy\u001b[1;24r\u001b[H\u001b[5;21H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "O",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;21HO\u001b[1;24r\u001b[H\u001b[5;22H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;22Hh\u001b[1;24r\u001b[H\u001b[5;23H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "i",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;23Hi\u001b[1;24r\u001b[H\u001b[5;24H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;24Ho\u001b[1;24r\u001b[H\u001b[5;25H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": ";",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5;25H;\u001b[1;24r\u001b[H\u001b[5;26H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\r\n",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.0002720355987548828
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[5BLISTEN\u001b[1;24r\u001b[H\u001b[6B\u001b[1;11r\u001b[H\u001b[7dpostgres=> \u001b[1;24r\u001b[H\u001b[7;12H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u0002",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[12;1H\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[32m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[?25l\u001b[1;1H\u001b(B\u001b[m\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> LISTEN PyOhio;\u001b[K\r\nLISTEN\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[2B\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[17;12H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "N",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;12HN\u001b[1;24r\u001b[H\u001b[17;13H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "O",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;13HO\u001b[1;24r\u001b[H\u001b[17;14H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "T",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;14HT\u001b[1;24r\u001b[H\u001b[17;15H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "I",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;15HI\u001b[1;24r\u001b[H\u001b[17;16H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "F",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;16HF\u001b[1;24r\u001b[H\u001b[17;17H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "Y",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;17HY\u001b[1;24r\u001b[H\u001b[17;18H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;18H \u001b[1;24r\u001b[H\u001b[17;19H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "P",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;19HP\u001b[1;24r\u001b[H\u001b[17;20H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "y",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;20Hy\u001b[1;24r\u001b[H\u001b[17;21H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "O",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;21HO\u001b[1;24r\u001b[H\u001b[17;22H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;22Hh\u001b[1;24r\u001b[H\u001b[17;23H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "i",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;23Hi\u001b[1;24r\u001b[H\u001b[17;24H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;24Ho\u001b[1;24r\u001b[H\u001b[17;25H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": ";",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[17;25H;\u001b[1;24r\u001b[H\u001b[17;26H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\r\n",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.0003840923309326172
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[18dNOTIFY\u001b[1;24r\u001b[H\u001b[19d\u001b[13;23r\u001b[H\u001b[19dpostgres=> \u001b[1;24r\u001b[H\u001b[19;12H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u0002",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[32m\u001b[12;1H\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[?25l\u001b[1;1H\u001b(B\u001b[m\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> LISTEN PyOhio;\u001b[K\r\nLISTEN\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[2B\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> NOTIFY PyOhio;\u001b[K\r\nNOTIFY\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:16 22-Jul-14\u001b(B\u001b[m\u001b[7;12H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "S",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;12HS\u001b[1;24r\u001b[H\u001b[7;13H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "E",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;13HE\u001b[1;24r\u001b[H\u001b[7;14H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "L",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;14HL\u001b[1;24r\u001b[H\u001b[7;15H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "E",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;15HE\u001b[1;24r\u001b[H\u001b[7;16H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "C",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;16HC\u001b[1;24r\u001b[H\u001b[7;17H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "T",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;17HT\u001b[1;24r\u001b[H\u001b[7;18H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;18H \u001b[1;24r\u001b[H\u001b[7;19H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "1",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;19H1\u001b[1;24r\u001b[H\u001b[7;20H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": ";",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[7;20H;\u001b[1;24r\u001b[H\u001b[7;21H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\r\n",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.000637054443359375
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[8d ?column? \r\n----------\r\n        1\u001b[1;24r\u001b[H\u001b[10B\u001b[1;11r\u001b[H\u001b[11d(1 row)\r\n\nAsynchronous notification \"pyohio\" received from server process with PID 7148.\r\npostgres=> \u001b[1;24r\u001b[H\u001b[11;12H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u0002",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[?25l\u001b[24;1H\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:17 22-Jul-14\u001b(B\u001b[m\u001b[11;12H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\r\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[32m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[?25l\u001b[1;1H\u001b(B\u001b[m\u001b[K\r\npostgres=> LISTEN PyOhio;\u001b[K\r\nLISTEN\u001b[K\r\npostgres=> SELECT 1;\u001b[K\r\n ?column? \u001b[K\r\n----------\u001b[K\r\n        1\u001b[K\r\n(1 row)\u001b[K\r\n\u001b[K\r\nAsynchronous notification \"pyohio\" received from server process with PID 7148.\u001b[K\r\npostgres=> \u001b[K\u001b[13;1H\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> NOTIFY PyOhio;\u001b[K\r\nNOTIFY\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:17 22-Jul-14\u001b(B\u001b[m\u001b[19;12H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u001b",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "[",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "A",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;12HNOTIFY PyOhio;\u001b[1;24r\u001b[H\u001b[19;26H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u001b",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "[",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "D",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\b",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": ",",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;25H,;\u001b[1;24r\u001b[H\u001b[19;26H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;26H ;\u001b[1;24r\u001b[H\u001b[19;27H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "'",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;27H';\u001b[1;24r\u001b[H\u001b[19;28H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "W",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;28HW;\u001b[1;24r\u001b[H\u001b[19;29H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;29Ho;\u001b[1;24r\u001b[H\u001b[19;30H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "w",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;30Hw;\u001b[1;24r\u001b[H\u001b[19;31H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;31H ;\u001b[1;24r\u001b[H\u001b[19;32H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "t",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;32Ht;\u001b[1;24r\u001b[H\u001b[19;33H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;33Hh;\u001b[1;24r\u001b[H\u001b[19;34H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "i",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;34Hi;\u001b[1;24r\u001b[H\u001b[19;35H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;35Hs;\u001b[1;24r\u001b[H\u001b[19;36H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;36H ;\u001b[1;24r\u001b[H\u001b[19;37H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "i",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;37Hi;\u001b[1;24r\u001b[H\u001b[19;38H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;38Hs;\u001b[1;24r\u001b[H\u001b[19;39H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;39H ;\u001b[1;24r\u001b[H\u001b[19;40H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "c",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;40Hc;\u001b[1;24r\u001b[H\u001b[19;41H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;41Ho;\u001b[1;24r\u001b[H\u001b[19;42H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;42Ho;\u001b[1;24r\u001b[H\u001b[19;43H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "l",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;43Hl;\u001b[1;24r\u001b[H\u001b[19;44H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": " ",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;44H ;\u001b[1;24r\u001b[H\u001b[19;45H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "s",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;45Hs;\u001b[1;24r\u001b[H\u001b[19;46H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "t",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;46Ht;\u001b[1;24r\u001b[H\u001b[19;47H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "u",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;47Hu;\u001b[1;24r\u001b[H\u001b[19;48H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "f",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;48Hf;\u001b[1;24r\u001b[H\u001b[19;49H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "f",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;49Hf;\u001b[1;24r\u001b[H\u001b[19;50H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "1",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;50H1;\u001b[1;24r\u001b[H\u001b[19;51H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u007f",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\b\u001b[1P\u001b[13;23r\u001b[H\u001b[19;50H;\u001b[1;24r\u001b[H\u001b[19;50H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "!",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;50H!;\u001b[1;24r\u001b[H\u001b[19;51H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "!",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;51H!;\u001b[1;24r\u001b[H\u001b[19;52H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "1",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;52H1;\u001b[1;24r\u001b[H\u001b[19;53H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "'",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[19;53H';\u001b[1;24r\u001b[H\u001b[19;54H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\r\n",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "PAUSE",
+      "duration": 0.00016689300537109375
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[13;23r\u001b[H\u001b[20dNOTIFY\u001b[1;24r\u001b[H\u001b[21d\u001b[13;23r\u001b[H\u001b[21dpostgres=> \u001b[1;24r\u001b[H\u001b[21;12H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u0002",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "o",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[32m\u001b[12;1H\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[?25l\u001b[1;1H\u001b(B\u001b[m\u001b[K\r\npostgres=> LISTEN PyOhio;\u001b[K\r\nLISTEN\u001b[K\r\npostgres=> SELECT 1;\u001b[K\r\n ?column? \u001b[K\r\n----------\u001b[K\r\n        1\u001b[K\r\n(1 row)\u001b[K\r\n\u001b[K\r\nAsynchronous notification \"pyohio\" received from server process with PID 7148.\u001b[K\r\npostgres=> \u001b[K\u001b[13;1H\u001b[33m~/source/talks/2014_pyohio\u001b[39m$ psql postgres\u001b[K\r\npsql (9.3.4)\u001b[K\r\nType \"help\" for help.\u001b[K\r\n\u001b[K\r\npostgres=> NOTIFY PyOhio;\u001b[K\r\nNOTIFY\u001b[K\r\npostgres=> NOTIFY PyOhio, 'Wow this is cool stuff!!1';                          \u001b[20;1HNOTIFY\u001b[K\r\npostgres=> \u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[30m\u001b[42m[3] 0:psql*                             \"~/source/talks/2014_py\" 18:17 22-Jul-14\u001b(B\u001b[m\u001b[11;12H\u001b[?12l\u001b[?25h",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\u001b",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "[",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "A",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[11;12HSELECT 1;\u001b[1;24r\u001b[H\u001b[11;21H",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "READ",
+      "data": "\r",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    },
+    {
+      "act": "WRITE",
+      "data": "\u001b[1;11r\u001b[H\u001b[11d\n\u001b[1;24r\u001b[H\u001b[10B\u001b[1;11r\u001b[H\u001b[11d ?column? \r\n----------\u001b[1;24r\u001b[H\u001b[11;11H\u001b[1;11r\u001b[H\u001b[11d\n        1\r\n(1 row)\r\n\nAsynchronous notification \"pyohio\" with payload \"Wow this is cool stuff!!1\" received from server process with PID 7148.\r\n",
+      "term": "c5af7d31a49a4586827dbf1618689014"
+    }
+  ],
+  "shell": "/bin/bash"
+}
