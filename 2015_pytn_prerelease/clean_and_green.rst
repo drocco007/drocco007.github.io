@@ -71,11 +71,26 @@ Why is this so challenging in practice?
 slide
 -----
 
-We were taught that it was sufficient to
+We learned that it was sufficient to
 
 **hide complexity**
 
 behind reasonable, coherent interfaces
+
+
+.. slide
+.. -----
+
+..     Testing raises our awareness of the external interface to the
+..     software and ensures our software is *conveniently callable*
+
+..     — Uncle Bob Martin
+
+
+slide
+-----
+
+But is convenient callability enough?
 
 
 slide
@@ -99,8 +114,6 @@ slide
             open_requests.append({
                 'author': pr['author']['username'],
                 'title': pr['title'],
-                'branch': pr['source']['branch']['name'],
-                'url': pr['links']['html']['href']
             })
 
         return open_requests
@@ -118,7 +131,7 @@ The external interface is convenient
         'author': 'pauline',
         'title': 'Never Said I Was an Angel',
         …
-    }]
+    },]
 
 
 slide
@@ -148,8 +161,6 @@ slide
             open_requests.append({
                 'author': pr['author']['username'],
                 'title': pr['title'],
-                'branch': pr['source']['branch']['name'],
-                'url': pr['links']['html']['href']
             })
 
         return open_requests
@@ -158,59 +169,21 @@ slide
 slide
 -----
 
-Now imagine this as a method
+.. code-block:: python
 
+    def get_open_pull_requests(owner, repository):
+        ··· = '···················································' \
+            .······(·····, ··········, '············')
+        response = requests.get(url)  # I/O
 
-slide
------
+        ············· = []
+        ··· ·· ·· response.json()['values']:  # I/O
+            ·············.······({
+                '······': ··['······']['········'],
+                '·····': ··['·····'],
+            })
 
-Methods **implicitly depend** on
-
-mutable instance state
-
-
-slide
------
-
-Methods are therefore
-
-**coupled** to that state
-
-
-slide
------
-
-and therefore to each other
-
-
-slide
------
-
-“Now you have two problems…”
-
-
-slide
------
-
-*Why does it matter?*
-
-
-slide
------
-
-    Testing raises our awareness of the external interface to the
-    software and ensures our software is *conveniently callable*
-
-    — Uncle Bob Martin
-
-
-slide
------
-
-    The real benefit of isolated tests is that those tests put
-    *tremendous pressure* on our designs
-
-    — J B Rainsberger
+        ······ ·············
 
 
 slide
@@ -250,25 +223,81 @@ slide
 slide
 -----
 
-What are we trying to test? What does our system care about?
+*Coupled procedures* are hard to
 
-.. code-block:: python
+**understand, test, maintain**
 
-    def get_open_pull_requests(owner, repository):
-        url = 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
-            .format(owner, repository, 'pullrequests')
-        response = requests.get(url)  # I/O
 
-        open_requests = []
-        for pr in response.json()['values']:  # I/O
-            open_requests.append({
-                'author': pr['author']['username'],
-                'title': pr['title'],
-                'branch': pr['source']['branch']['name'],
-                'url': pr['links']['html']['href']
-            })
+.. slide
+.. -----
 
-        return open_requests
+.. Now imagine this as a method
+
+
+.. slide
+.. -----
+
+.. Methods **implicitly depend** on
+
+.. mutable instance state
+
+
+.. slide
+.. -----
+
+.. Methods are therefore
+
+.. **coupled** to that state
+
+
+.. slide
+.. -----
+
+.. and therefore to each other
+
+
+.. slide
+.. -----
+
+.. “Now you have two problems…”
+
+
+slide
+-----
+
+What are we trying to test?
+
+
+slide
+-----
+
+well, …
+
+
+slide
+-----
+
+What does *our system* care about?
+
+
+.. slide
+.. -----
+
+.. .. code-block:: python
+
+..     def get_open_pull_requests(owner, repository):
+..         url = 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
+..             .format(owner, repository, 'pullrequests')
+..         response = requests.get(url)  # I/O
+
+..         open_requests = []
+..         for pr in response.json()['values']:  # I/O
+..             open_requests.append({
+..                 'author': pr['author']['username'],
+..                 'title': pr['title'],
+..             })
+
+..         return open_requests
 
 
 slide
@@ -282,7 +311,9 @@ return the appropriate bits from the payload.
 slide
 -----
 
-We need to test *our logic* in ``get_open_pull_requests()``
+We need to test *our logic* in
+
+``get_open_pull_requests()``
 
 with a variety of responses
 
@@ -395,16 +426,28 @@ Faking it doen't put
 on the **complexity** of your system
 
 
+slide
+-----
+
+    The real benefit of **isolated** tests is that those tests put
+    *tremendous pressure* on our designs
+
+    — J B Rainsberger
 
 
+slide
+-----
 
-.. slide
-.. -----
+    Testing forces us to *decouple* the software, since highly-coupled
+    software is **more difficult to test**
 
-..     Testing forces us to *decouple* the software, since highly-coupled
-..     software is **more difficult to test**
+    — Uncle Bob Martin
 
-..     — Uncle Bob Martin
+
+slide
+-----
+
+
 
 
 .. slide
@@ -460,6 +503,7 @@ How?
 This talk
 ---------
 
+
 slide
 -----
 
@@ -493,8 +537,6 @@ slide
             open_requests.append({
                 'author': pr['author']['username'],
                 'title': pr['title'],
-                'branch': pr['source']['branch']['name'],
-                'url': pr['links']['html']['href']
             })
 
         return open_requests
@@ -502,30 +544,6 @@ slide
 
 Pragmatic Pattern 1: Promote I/O
 --------------------------------
-
-
-.. slide
-.. -----
-
-.. *Coupled procedures* are **complex**
-
-
-.. slide
-.. -----
-
-.. | coupled: *combined, connected, joined*
-.. |
-.. | procedure: subroutine that relies on *mutable state*
-
-
-.. slide
-.. -----
-
-.. *Coupled procedures* are **complex** because
-
-.. *results*
-
-.. depend on **collaborations** and **mutable state**
 
 
 slide
@@ -560,33 +578,9 @@ slide
             open_requests.append({
                 'author': pr['author']['username'],
                 'title': pr['title'],
-                'branch': pr['source']['branch']['name'],
-                'url': pr['links']['html']['href']
             })
 
         return open_requests
-
-
-slide
------
-
-.. code-block:: python
-
-    def get_open_pull_requests(owner, repository):
-        ··· = '···················································' \
-            .······(·····, ··········, '············')
-        response = requests.get(url)  # I/O
-
-        ············· = []
-        ··· ·· ·· response.json()['values']:  # I/O
-            ·············.······({
-                '······': ··['······']['········'],
-                '·····': ··['·····'],
-                '······': ··['······']['······']['····'],
-                '···': ··['·····']['····']['····']
-            })
-
-        ······ ·············
 
 
 slide
@@ -603,23 +597,25 @@ slide
     def get_open_pull_requests(owner, repository):
         url = build_url(owner, repository)
         response = requests.get(url)  # I/O
-        return extract_pull_requests(response.json())  # I/O
+        data = response.json()  # I/O
+        return extract_pull_requests(data)
 
-    def build_url(owner, repository):
-        return 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
-            .format(owner, repository, 'pullrequests')
 
-    def extract_pull_requests(data):
-        open_requests = []
-        for pr in data['values']:
-            open_requests.append({
-                'author': pr['author']['username'],
-                'title': pr['title'],
-                'branch': pr['source']['branch']['name'],
-                'url': pr['links']['html']['href'],
-            })
+..
 
-        return open_requests
+    .. def build_url(owner, repository):
+    ..     return 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
+    ..         .format(owner, repository, 'pullrequests')
+
+    .. def extract_pull_requests(data):
+    ..     open_requests = []
+    ..     for pr in data['values']:
+    ..         open_requests.append({
+    ..             'author': pr['author']['username'],
+    ..             'title': pr['title'],
+    ..         })
+
+    ..     return open_requests
 
 
 slide
@@ -632,7 +628,44 @@ Highly abstracted, readable manager procedure
     def get_open_pull_requests(owner, repository):
         url = build_url(owner, repository)
         response = requests.get(url)  # I/O
-        return extract_pull_requests(response.json())  # I/O
+        data = response.json()  # I/O
+        return extract_pull_requests(data)
+
+
+slide
+-----
+
+Instead of **encapsulating** I/O, we *promote* it
+
+.. code-block:: python
+
+    def get_open_pull_requests(owner, repository):
+        ··· = ·········(······ ··········)
+        response = requests.get(url)  # I/O
+        data = response.json()  # I/O
+        ······ ·····················(····)
+
+
+slide
+-----
+
+Eliminating the I/O dependency in our logic
+
+.. code-block:: python
+
+    def build_url(owner, repository):
+        return 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
+            .format(owner, repository, 'pullrequests')
+
+    def extract_pull_requests(data):
+        open_requests = []
+        for pr in data['values']:
+            open_requests.append({
+                'author': pr['author']['username'],
+                'title': pr['title'],
+            })
+
+        return open_requests
 
 
 slide
@@ -652,42 +685,46 @@ Policies are clearly separated from mechanisms
             open_requests.append({
                 'author': pr['author']['username'],
                 'title': pr['title'],
-                'branch': pr['source']['branch']['name'],
-                'url': pr['links']['html']['href'],
             })
 
         return open_requests
 
-slide
------
-
-Policies are completely decoupled from I/O
-
-.. code-block:: python
-
-    def build_url(owner, repository):
-        return 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
-            .format(owner, repository, 'pullrequests')
-
-    def extract_pull_requests(data):
-        open_requests = []
-        for pr in data['values']:
-            open_requests.append({
-                'author': pr['author']['username'],
-                'title': pr['title'],
-                'branch': pr['source']['branch']['name'],
-                'url': pr['links']['html']['href'],
-            })
-
-        return open_requests
 
 slide
 -----
 
 Policies are easily testable using simple data
 
+.. code-block:: python
 
-.. show examples
+    def test_build_url():
+        expected = 'https://api.bitbucket.org/2.0/repositories' \
+            '/drocco/repo/pullrequests'
+
+        assert expected == build_url('drocco', 'repo')
+
+    def test_extract_with_no_pull_requests():
+        assert not extract_pull_requests({'values': []})
+
+    def test_extract_pull_requests():
+        pr_data = {'values': [{'author': {'username': 'amber'},
+                               'title': 'Add git mastery lessons'}]}
+
+        assert 'amber' == extract_pull_requests(pr_data)['author']
+
+
+slide
+-----
+
+By improving the *testability* of this code,
+
+we have also improved its
+
+
+slide
+-----
+
+design
 
 
 slide
@@ -716,16 +753,15 @@ Here's the idea:
 slide
 -----
 
-Eight| My first attempt
-|
+My first attempt
 
 .. code-block:: python
 
     def locate_paths_with_same_content(root):
         file_map = defaultdict(set)
 
-        for path in locate_files(root):
-            file_hash = hash_contents(path)
+        for path in locate_files(root):  # I/O
+            file_hash = hash_contents(path)  # I/O
             file_map[file_hash].add(path)
 
         return file_map.values()
@@ -742,8 +778,8 @@ slide
     def locate_paths_with_same_content(root):
         ········ = ···········(···)
 
-        for path in locate_files(root):
-            ········· = ·············(····)
+        for path in locate_files(root):  # I/O
+            ········· = ·············(····)  # I/O
             ·······················(····)
 
         ······ ···············()
@@ -760,8 +796,8 @@ slide
     def locate_paths_with_same_content(root):
         ········ = ···········(···)
 
-        for ···· ·· ············(····):
-            file_hash = hash_contents(path)
+        for ···· ·· ············(····):  # I/O
+            file_hash = hash_contents(path)  # I/O
             ·······················(····)
 
         ······ ···············()
@@ -785,8 +821,8 @@ slide
     def locate_paths_with_same_content(root):
         file_map = defaultdict(set)
 
-        for path in locate_files(root):
-            file_hash = hash_contents(path)
+        for path in locate_files(root):  # I/O
+            file_hash = hash_contents(path)  # I/O
             file_map[file_hash].add(path)
 
         return file_map.values()
@@ -843,8 +879,8 @@ slide
     def locate_paths_with_same_content(root):
         file_map = defaultdict(set)
 
-        for path in locate_files(root):
-            file_hash = hash_contents(path)
+        for path in locate_files(root):  # I/O
+            file_hash = hash_contents(path)  # I/O
             file_map[file_hash].add(path)
 
         return file_map.values()
@@ -858,8 +894,8 @@ slide
 ..     def locate_paths_with_same_content(root):
 ..         file_map = defaultdict(set)
 
-..         for path in locate_files(root):
-..             file_hash = hash_contents(path)
+..         for path in locate_files(root):  # I/O
+..             file_hash = hash_contents(path)  # I/O
 ..             file_map[file_hash].add(path)
 
 ..         return file_map.values()
@@ -940,10 +976,6 @@ slide
 -----
 
 *What do we* **actually care about** *here?*
-
-
-?
--
 
 
 slide
@@ -1033,8 +1065,8 @@ For our testing purposes,
 
 ..         file_map = defaultdict(set)
 
-..         for path in locate_files(root):
-..             file_hash = hash_contents(path)
+..         for path in locate_files(root):  # I/O
+..             file_hash = hash_contents(path)  # I/O
 ..             file_map[file_hash].add(path)
 
 ..         return file_map.values()
@@ -1049,13 +1081,6 @@ For our testing purposes,
 ..     — Gary Bernhardt
 
 
-.. slide
-.. -----
-
-.. First, an easy fix…
-
-
-
 slide
 -----
 
@@ -1068,13 +1093,21 @@ slide
 .. code-block:: python
 
     def locate_paths_with_same_content(root):
-        return paths_with_same_hash(locate_files(root))
+        # …
+
+↓
+
+.. code-block:: python
+
+    def locate_paths_with_same_content(root):
+        paths = locate_files(root)  # I/O
+        return paths_with_same_hash(paths)
 
     def paths_with_same_hash(paths):
         file_map = defaultdict(set)
 
         for path in paths:
-            file_hash = hash_contents(path)
+            file_hash = hash_contents(path)  # I/O
             file_map[file_hash].add(path)
 
         return file_map.values()
@@ -1099,7 +1132,7 @@ slide
         file_map = defaultdict(set)
 
         for path in paths:
-            file_hash = hash_contents(path)
+            file_hash = hash_contents(path)  # I/O
             file_map[file_hash].add(path)
 
         return file_map.values()
@@ -1126,7 +1159,7 @@ slide
         file_map = defaultdict(set)
 
         for path in paths:
-            file_hash = hash_contents(path)
+            file_hash = hash_contents(path)  # I/O
             file_map[file_hash].add(path)
 
         return file_map.values()
@@ -1144,7 +1177,7 @@ mechanism
     .. code-block:: python
 
         for path in paths:
-            file_hash = hash_contents(path)
+            file_hash = hash_contents(path)  # I/O
 
 
 slide
@@ -1160,12 +1193,12 @@ slide
 .. code-block:: python
 
     def locate_paths_with_same_content(root):
-        paths = locate_files(root)
-        annotated_paths = hash_paths(paths)
+        paths = locate_files(root)  # I/O
+        annotated_paths = hash_paths(paths)  # I/O
         return paths_with_same_hash(annotated_paths)
 
     def hash_paths(paths):
-        return [(hash_contents(path), path) for path in paths]
+        return [(hash_contents(path), path) for path in paths]  # I/O
 
     def paths_with_same_hash(annotated_paths):
         file_map = defaultdict(set)
@@ -1186,7 +1219,7 @@ slide
 .. code-block:: python
 
     def hash_paths(paths):
-        return [(hash_contents(path), path) for path in paths]
+        return [(hash_contents(path), path) for path in paths]  # I/O
 
 
 slide
@@ -1205,15 +1238,23 @@ Policy is a *pure function* that operates on **simple data values**
         return file_map.values()
 
 
+slide
+-----
+
+Policy is easily tested with simple data
+
+.. code-block:: python
+
+    def test_simple_difference():
+        annotated_paths = [('0xabcd', 'a.jpg'), ('0xdead', 'b.jpg')]
+
+        assert 2 == len(paths_with_same_hash(annotated_paths))
 
 
+    def test_simple_match():
+        annotated_paths = [('0000', 'a.jpg'), ('0000', 'b.jpg')]
 
-
-
-
-
-
-
+        assert 1 == len(paths_with_same_hash(annotated_paths))
 
 
 
@@ -1450,6 +1491,42 @@ Filter applications to the correct type:
     def by_type(applications, exam_type):
         return [application for application in applications
                 if application.exam_type == exam_type]
+
+
+slide
+-----
+
+.. code-block:: python
+
+    prior_apps = not_withdrawn(by_type(user.applications, exam_type))
+    fail_dates = sorted(app.exam_date for app in prior_apps)
+
+
+slide
+-----
+
+Pipeline allows a **complex transform**
+
+to be expressed as a
+
+*series of simple transforms*
+
+
+slide
+-----
+
+.. code-block:: python
+
+    prior_apps = not_withdrawn(by_type(user.applications, exam_type))
+    fail_dates = sorted(app.exam_date for app in prior_apps)
+
+
+slide
+-----
+
+These transforms are *easily tested*
+
+and *convenient to reuse*
 
 
 slide
@@ -1787,15 +1864,11 @@ Engage
 slide
 -----
 
-So what's the problem?
+Again…
 
 
-Q:
---
-
-
-Q:
---
+slide
+-----
 
 How would you test this?
 
@@ -1842,10 +1915,6 @@ slide
 Q:
 --
 
-
-Q:
---
-
 How would you implement
 
 **custom rules**
@@ -1860,7 +1929,7 @@ How could we possibly convert
 
 **delete()**
 
-to a purely functional form?
+to a pure functional form?
 
 
 slide
@@ -1944,7 +2013,7 @@ slide
 slide
 -----
 
-becomes
+Step 1: pull out eveything that isn't dispatch
 
 
 slide
@@ -2032,7 +2101,7 @@ slide
 What does it look like?
 
 
-Step 1: ``is_removable()``
+Step 2: ``is_removable()``
 --------------------------
 
 .. code-block:: python
@@ -2249,12 +2318,11 @@ slide
         agreement = EndUserAgreement.get(id)
         all_agreements = EndUserAgreement.query
 
-        def on_remove():
-            agreement.delete()
-            adjust_dates(minimum_start_date=agreement.start_date)
+        removable, reason = is_removable(agreement, all_agreements)
 
-        removable, reason = is_removable(agreement, all_agreements,
-                                         remove_callback=on_remove)
+        if removable:
+            adjust_dates_for_delete(agreement)
+            agreement.delete()
 
         return removable, reason
 
@@ -2266,43 +2334,27 @@ slide
 
     # agreements.py (step 3)                          (imperative shell)
 
-    def adjust_dates(minimum_start_date=None):
-        all_agreements = EndUserAgreement.query.order_by('start_date')
+    def adjust_dates_for_delete(agreement):
+        previous_agreement = self.get_previous(agreement.start_date,
+                                               agreement.id)
+        next_agreement = self.get_next(agreement.start_date, id)
 
-        for agreement, start, end in mind_the_gap(all_agreements,
-                                                  minimum_start_date):
-            agreement.start_date = start
-            agreement.end_date = end
-
-
-slide
------
-
-Find ordered pairs of agreements with gaps between them…
-
-.. code-block:: python
-
-    def adjust_dates(minimum_start_date=None):
-        all_agreements = EndUserAgreement.query.order_by('start_date')
-
-        for agreement, start, end in mind_the_gap(all_agreements,
-                                                  minimum_start_date):
-            # …
+        target_agreement, updated_dates = get_agreement_update(previous, agreement, next)
+        target_agreement.update(updated_dates)
 
 
 slide
 -----
 
-| and for each,
-| update its dates
-| as indicated by the core
-
 .. code-block:: python
 
-    def adjust_dates(minimum_start_date=None):
-        for agreement, start, end in …:
-            agreement.start_date = start
-            agreement.end_date = end
+    # agreements_core.py (step 3)                      (functional core)
+
+    def get_agreement_update(previous, agreement, next)
+        if previous_agreement:
+            return previous_agreement, {'end_date':  agreement.end_date}
+        else:
+            return next_agreement, {'start_date':  agreement.start_date}
 
 
 slide
@@ -2313,48 +2365,6 @@ The core implements the rules
 * which agreements need to be updated
 * what the new dates should be
 
-
-slide
------
-
-a little ``itertools`` help (from stdlib docs)
-
-.. code-block:: python
-
-    >>> from itertools import izip, tee
-    >>> def pairwise(iterable):
-    ...     "s -> (s0,s1), (s1,s2), (s2, s3), ..."
-    ...     a, b = tee(iterable)
-    ...     next(b, None)
-    ...     return izip(a, b)
-
-
-slide
------
-
-.. code-block:: python
-
-    # agreements_core.py (step 3)                      (functional core)
-
-    >>> def mind_the_gap(sorted_agreements, minimum_start_date=None):
-    ...     first = sorted_agreements[0]
-    ...
-    ...     if minimum_start_date and first.start_date > minimum_start_date:
-    ...         yield first, minimum_start_date, first.end_date
-    ...
-    ...     for a, b in pairwise(sorted_agreements):
-    ...         if a.end_date < b.start_date:
-    ...             yield a, a.start_date, b.start_date
-
-
-.. slide
-.. -----
-
-.. <tests here>
-
-
-.. slide
-.. -----
 
 slide
 -----
@@ -2420,7 +2430,7 @@ Our functional core
 
 .. code-block:: python
 
-    >>> def is_removable(agreement, all_agreements, remove_callback=None):
+    >>> def is_removable(agreement, all_agreements):
     ...     assert agreement and agreement in all_agreements
     ...
     ...     if agreement.start_date <= date.today():
@@ -2428,25 +2438,15 @@ Our functional core
     ...     elif len(all_agreements) <= 1:
     ...         return False, 'only_agreement'
     ...     else:
-    ...         remove_callback() if remove_callback else None
     ...         return True, None
 
-slide
------
+    def get_agreement_update(previous, agreement, next)
+        if previous_agreement:
+            return previous_agreement, {'end_date':  agreement.end_date}
+        else:
+            return next_agreement, {'start_date':  agreement.start_date}
 
-Functional core (cont.)
 
-.. code-block:: python
-
-    >>> def mind_the_gap(sorted_agreements, minimum_start_date=None):
-    ...     first = sorted_agreements[0]
-    ...
-    ...     if minimum_start_date and first.start_date > minimum_start_date:
-    ...         yield first, minimum_start_date, first.end_date
-    ...
-    ...     for a, b in pairwise(sorted_agreements):
-    ...         if a.end_date < b.start_date:
-    ...             yield a, a.start_date, b.start_date
 
 
 slide
@@ -2462,7 +2462,7 @@ slide
 
 .. code-block:: python
 
-    >>> def is_removable(agreement, all_agreements, remove_callback=None):
+    >>> def is_removable(agreement, all_agreements):
     ...     assert agreement and agreement in all_agreements
     ...
     ...     if agreement.start_date <= date.today():
@@ -2470,8 +2470,14 @@ slide
     ...     elif len(all_agreements) <= 1:
     ...         return False, 'only_agreement'
     ...     else:
-    ...         remove_callback() if remove_callback else None
     ...         return True, None
+
+    def get_agreement_update(previous, agreement, next)
+        if previous_agreement:
+            return previous_agreement, {'end_date':  agreement.end_date}
+        else:
+            return next_agreement, {'start_date':  agreement.start_date}
+
 
 slide
 -----
@@ -2531,12 +2537,11 @@ Our imperative shell
         agreement = EndUserAgreement.get(id)
         all_agreements = EndUserAgreement.query
 
-        def on_remove():
-            agreement.delete()
-            adjust_dates(minimum_start_date=agreement.start_date)
+        removable, reason = is_removable(agreement, all_agreements)
 
-        removable, reason = is_removable(agreement, all_agreements,
-                                         remove_callback=on_remove)
+        if removable:
+            adjust_dates_for_delete(agreement)
+            agreement.delete()
 
         return removable, reason
 
