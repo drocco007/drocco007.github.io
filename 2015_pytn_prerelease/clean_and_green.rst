@@ -62,14 +62,26 @@ such that they are
 *understandable, testable, maintainable*
 
 
-How?
-----
+slide
+-----
+
+Why is this so challenging in practice?
 
 
 slide
 -----
 
-Example: Dashboard with Web API data
+We were taught that it was sufficient to
+
+**hide complexity**
+
+behind reasonable, coherent interfaces
+
+
+slide
+-----
+
+Example: Let's build a dashboard populated with data from a Web API
 
 
 slide
@@ -97,9 +109,182 @@ slide
 slide
 -----
 
-Goal: test ``get_open_pull_requests()``
+The external interface is convenient
 
-*without hitting the Web*
+.. code-block:: python
+
+    >>> get_open_pull_requests('drocco', 'some_repo')
+    [{
+        'author': 'pauline',
+        'title': 'Never Said I Was an Angel',
+        …
+    }]
+
+
+slide
+-----
+
+but
+
+
+slide
+-----
+
+Inside the encapsulation is a coupled procedure
+
+
+slide
+-----
+
+.. code-block:: python
+
+    def get_open_pull_requests(owner, repository):
+        url = 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
+            .format(owner, repository, 'pullrequests')
+        response = requests.get(url)  # I/O
+
+        open_requests = []
+        for pr in response.json()['values']:  # I/O
+            open_requests.append({
+                'author': pr['author']['username'],
+                'title': pr['title'],
+                'branch': pr['source']['branch']['name'],
+                'url': pr['links']['html']['href']
+            })
+
+        return open_requests
+
+
+slide
+-----
+
+Now imagine this as a method
+
+
+slide
+-----
+
+Methods **implicitly depend** on
+
+mutable instance state
+
+
+slide
+-----
+
+Methods are therefore
+
+**coupled** to that state
+
+
+slide
+-----
+
+and therefore to each other
+
+
+slide
+-----
+
+“Now you have two problems…”
+
+
+slide
+-----
+
+*Why does it matter?*
+
+
+slide
+-----
+
+    Testing raises our awareness of the external interface to the
+    software and ensures our software is *conveniently callable*
+
+    — Uncle Bob Martin
+
+
+slide
+-----
+
+    The real benefit of isolated tests is that those tests put
+    *tremendous pressure* on our designs
+
+    — J B Rainsberger
+
+
+slide
+-----
+
+*Why does it matter?*
+
+
+slide
+-----
+
+It matters because you want to build
+
+*understandable, testable, maintainable*
+
+systems
+
+
+slide
+-----
+
+The issue is **complexity**
+
+
+slide
+-----
+
+*Simple* is better than **complex**
+
+
+slide
+-----
+
+*Coupled procedures* are **inherently complex**
+
+
+slide
+-----
+
+What are we trying to test? What does our system care about?
+
+.. code-block:: python
+
+    def get_open_pull_requests(owner, repository):
+        url = 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
+            .format(owner, repository, 'pullrequests')
+        response = requests.get(url)  # I/O
+
+        open_requests = []
+        for pr in response.json()['values']:  # I/O
+            open_requests.append({
+                'author': pr['author']['username'],
+                'title': pr['title'],
+                'branch': pr['source']['branch']['name'],
+                'url': pr['links']['html']['href']
+            })
+
+        return open_requests
+
+
+slide
+-----
+
+Given a correct response from the API,
+
+return the appropriate bits from the payload.
+
+
+slide
+-----
+
+We need to test *our logic* in ``get_open_pull_requests()``
+
+with a variety of responses
 
 
 slide
@@ -197,19 +382,7 @@ Your mock isn't the real library
 slide
 -----
 
-More importantly,
-
-
-slide
------
-
-*Simple* is better than **complex**
-
-
-slide
------
-
-*Coupled procedures* are **complex**
+But more importantly,
 
 
 slide
@@ -219,33 +392,19 @@ Faking it doen't put
 
 *design pressure*
 
-on that **complexity**
+on the **complexity** of your system
 
 
-slide
------
 
-    The real benefit of isolated tests is that those tests put
-    *tremendous pressure* on our designs
 
-    — J B Rainsberger
 
 .. slide
 .. -----
 
-..     Testing raises our awareness of the external interface to the
-..     software and ensures our software is *conveniently callable*
+..     Testing forces us to *decouple* the software, since highly-coupled
+..     software is **more difficult to test**
 
 ..     — Uncle Bob Martin
-
-
-slide
------
-
-    Testing forces us to *decouple* the software, since highly-coupled
-    software is **more difficult to test**
-
-    — Uncle Bob Martin
 
 
 .. slide
@@ -298,14 +457,57 @@ How?
 ----
 
 
-Pragmatic Pattern 1: Promote I/O
---------------------------------
+This talk
+---------
+
+slide
+-----
+
+*How do I recognize hidden complexity?*
 
 
 slide
 -----
 
-*Coupled procedures* are **complex**
+*What patterns can I apply to remedy it?*
+
+
+slide
+-----
+
+*How do I organize larger systems?*
+
+
+slide
+-----
+
+.. code-block:: python
+
+    def get_open_pull_requests(owner, repository):
+        url = 'https://api.bitbucket.org/2.0/repositories/{}/{}/{}' \
+            .format(owner, repository, 'pullrequests')
+        response = requests.get(url)  # I/O
+
+        open_requests = []
+        for pr in response.json()['values']:  # I/O
+            open_requests.append({
+                'author': pr['author']['username'],
+                'title': pr['title'],
+                'branch': pr['source']['branch']['name'],
+                'url': pr['links']['html']['href']
+            })
+
+        return open_requests
+
+
+Pragmatic Pattern 1: Promote I/O
+--------------------------------
+
+
+.. slide
+.. -----
+
+.. *Coupled procedures* are **complex**
 
 
 .. slide
@@ -423,6 +625,19 @@ slide
 slide
 -----
 
+Highly abstracted, readable manager procedure
+
+.. code-block:: python
+
+    def get_open_pull_requests(owner, repository):
+        url = build_url(owner, repository)
+        response = requests.get(url)  # I/O
+        return extract_pull_requests(response.json())  # I/O
+
+
+slide
+-----
+
 Policies are clearly separated from mechanisms
 
 .. code-block:: python
@@ -469,19 +684,6 @@ Policies are completely decoupled from I/O
 slide
 -----
 
-Highly abstracted, readable manager procedure
-
-.. code-block:: python
-
-    def get_open_pull_requests(owner, repository):
-        url = build_url(owner, repository)
-        response = requests.get(url)  # I/O
-        return extract_pull_requests(response.json())  # I/O
-
-
-slide
------
-
 Policies are easily testable using simple data
 
 
@@ -514,7 +716,7 @@ Here's the idea:
 slide
 -----
 
-| My first attempt
+Eight| My first attempt
 |
 
 .. code-block:: python

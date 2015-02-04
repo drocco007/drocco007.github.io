@@ -51,14 +51,21 @@
 <p>such that they are</p>
 <p><em>understandable, testable, maintainable</em></p>
 </div>
-<div class="section" id="how">
-<h1>How?</h1>
-</div>
 <div class="section" id="id5">
 
-<p>Example: Dashboard with Web API data</p>
+<p>Why is this so challenging in practice?</p>
 </div>
 <div class="section" id="id6">
+
+<p>We were taught that it was sufficient to</p>
+<p><strong>hide complexity</strong></p>
+<p>behind reasonable, coherent interfaces</p>
+</div>
+<div class="section" id="id7">
+
+<p>Example: Let’s build a dashboard populated with data from a Web API</p>
+</div>
+<div class="section" id="id8">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
@@ -78,32 +85,162 @@
     <span class="k">return</span> <span class="n">open_requests</span>
 </pre>
 </div>
-<div class="section" id="id7">
+<div class="section" id="id9">
 
-<p>Goal: test <tt class="docutils literal">get_open_pull_requests()</tt></p>
-<p><em>without hitting the Web</em></p>
+<p>The external interface is convenient</p>
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">get_open_pull_requests</span><span class="p">(</span><span class="s">'drocco'</span><span class="p">,</span> <span class="s">'some_repo'</span><span class="p">)</span>
+<span class="p">[{</span>
+    <span class="s">'author'</span><span class="p">:</span> <span class="s">'pauline'</span><span class="p">,</span>
+    <span class="s">'title'</span><span class="p">:</span> <span class="s">'Never Said I Was an Angel'</span><span class="p">,</span>
+    <span class="err">…</span>
+<span class="p">}]</span>
+</pre>
 </div>
-<div class="section" id="id8">
+<div class="section" id="id10">
+
+<p>but</p>
+</div>
+<div class="section" id="id11">
+
+<p>Inside the encapsulation is a coupled procedure</p>
+</div>
+<div class="section" id="id12">
+
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">'https://api.bitbucket.org/2.0/repositories/{}/{}/{}'</span> \
+        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="s">'pullrequests'</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c"># I/O</span>
+
+    <span class="n">open_requests</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pr</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">'values'</span><span class="p">]:</span>  <span class="c"># I/O</span>
+        <span class="n">open_requests</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s">'author'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'author'</span><span class="p">][</span><span class="s">'username'</span><span class="p">],</span>
+            <span class="s">'title'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'title'</span><span class="p">],</span>
+            <span class="s">'branch'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'source'</span><span class="p">][</span><span class="s">'branch'</span><span class="p">][</span><span class="s">'name'</span><span class="p">],</span>
+            <span class="s">'url'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'links'</span><span class="p">][</span><span class="s">'html'</span><span class="p">][</span><span class="s">'href'</span><span class="p">]</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">open_requests</span>
+</pre>
+</div>
+<div class="section" id="id13">
+
+<p>Now imagine this as a method</p>
+</div>
+<div class="section" id="id14">
+
+<p>Methods <strong>implicitly depend</strong> on</p>
+<p>mutable instance state</p>
+</div>
+<div class="section" id="id15">
+
+<p>Methods are therefore</p>
+<p><strong>coupled</strong> to that state</p>
+</div>
+<div class="section" id="id16">
+
+<p>and therefore to each other</p>
+</div>
+<div class="section" id="id17">
+
+<p>“Now you have two problems…”</p>
+</div>
+<div class="section" id="id18">
+
+<p><em>Why does it matter?</em></p>
+</div>
+<div class="section" id="id19">
+
+<blockquote>
+<p>Testing raises our awareness of the external interface to the
+software and ensures our software is <em>conveniently callable</em></p>
+<p class="attribution">&mdash;Uncle Bob Martin</p>
+</blockquote>
+</div>
+<div class="section" id="id20">
+
+<blockquote>
+<p>The real benefit of isolated tests is that those tests put
+<em>tremendous pressure</em> on our designs</p>
+<p class="attribution">&mdash;J B Rainsberger</p>
+</blockquote>
+</div>
+<div class="section" id="id21">
+
+<p><em>Why does it matter?</em></p>
+</div>
+<div class="section" id="id22">
+
+<p>It matters because you want to build</p>
+<p><em>understandable, testable, maintainable</em></p>
+<p>systems</p>
+</div>
+<div class="section" id="id23">
+
+<p>The issue is <strong>complexity</strong></p>
+</div>
+<div class="section" id="id24">
+
+<p><em>Simple</em> is better than <strong>complex</strong></p>
+</div>
+<div class="section" id="id25">
+
+<p><em>Coupled procedures</em> are <strong>inherently complex</strong></p>
+</div>
+<div class="section" id="id26">
+
+<p>What are we trying to test? What does our system care about?</p>
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">'https://api.bitbucket.org/2.0/repositories/{}/{}/{}'</span> \
+        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="s">'pullrequests'</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c"># I/O</span>
+
+    <span class="n">open_requests</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pr</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">'values'</span><span class="p">]:</span>  <span class="c"># I/O</span>
+        <span class="n">open_requests</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s">'author'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'author'</span><span class="p">][</span><span class="s">'username'</span><span class="p">],</span>
+            <span class="s">'title'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'title'</span><span class="p">],</span>
+            <span class="s">'branch'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'source'</span><span class="p">][</span><span class="s">'branch'</span><span class="p">][</span><span class="s">'name'</span><span class="p">],</span>
+            <span class="s">'url'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'links'</span><span class="p">][</span><span class="s">'html'</span><span class="p">][</span><span class="s">'href'</span><span class="p">]</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">open_requests</span>
+</pre>
+</div>
+<div class="section" id="id27">
+
+<p>Given a correct response from the API,</p>
+<p>return the appropriate bits from the payload.</p>
+</div>
+<div class="section" id="id28">
+
+<p>We need to test <em>our logic</em> in <tt class="docutils literal">get_open_pull_requests()</tt></p>
+<p>with a variety of responses</p>
+</div>
+<div class="section" id="id29">
 
 <p>Higher-level question:</p>
 <blockquote>
 In general, how can we build testable systems
 that have nontrivial, stateful dependencies?</blockquote>
 </div>
-<div class="section" id="id9">
+<div class="section" id="id30">
 
 <p>disk, Web, database, …</p>
 </div>
-<div class="section" id="id10">
+<div class="section" id="id31">
 
 <p>Common approach: fake it</p>
 </div>
-<div class="section" id="id11">
+<div class="section" id="id32">
 
 <p>Fake it: build API-compatible replacements
 for your dependencies with test fixture support</p>
 </div>
-<div class="section" id="id12">
+<div class="section" id="id33">
 
 <table border="1" class="docutils">
 <colgroup>
@@ -129,19 +266,19 @@ for your dependencies with test fixture support</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="id13">
+<div class="section" id="id34">
 
 <p>Faking it has</p>
 </div>
-<div class="section" id="id14">
+<div class="section" id="id35">
 
 <p>problems</p>
 </div>
-<div class="section" id="id15">
+<div class="section" id="id36">
 
 <p>Test and production calls are asymmetric</p>
 </div>
-<div class="section" id="id16">
+<div class="section" id="id37">
 
 <p>Production:</p>
 <pre class="code python literal-block">
@@ -156,55 +293,31 @@ for your dependencies with test fixture support</p>
         <span class="n">open_prs</span> <span class="o">=</span> <span class="n">get_open_pull_requests</span><span class="p">(</span><span class="s">'drocco'</span><span class="p">,</span> <span class="s">'repo'</span><span class="p">)</span>
 </pre>
 </div>
-<div class="section" id="id17">
+<div class="section" id="id38">
 
 <div class="line-block">
 <div class="line">Tricky, brittle, awkward mechanics</div>
 <div class="line">(<tt class="docutils literal">patch()</tt>, dependency injection)</div>
 </div>
 </div>
-<div class="section" id="id18">
+<div class="section" id="id39">
 
 <p>Your mock isn’t the real library</p>
 </div>
-<div class="section" id="id19">
+<div class="section" id="id40">
 
-<p>More importantly,</p>
+<p>But more importantly,</p>
 </div>
-<div class="section" id="id20">
-
-<p><em>Simple</em> is better than <strong>complex</strong></p>
-</div>
-<div class="section" id="id21">
-
-<p><em>Coupled procedures</em> are <strong>complex</strong></p>
-</div>
-<div class="section" id="id22">
+<div class="section" id="id41">
 
 <p>Faking it doen’t put</p>
 <p><em>design pressure</em></p>
-<p>on that <strong>complexity</strong></p>
-</div>
-<div class="section" id="id23">
-
-<blockquote>
-<p>The real benefit of isolated tests is that those tests put
-<em>tremendous pressure</em> on our designs</p>
-<p class="attribution">&mdash;J B Rainsberger</p>
-</blockquote>
+<p>on the <strong>complexity</strong> of your system</p>
 <!-- slide -->
 <!-- - - - - - -->
-<!-- Testing raises our awareness of the external interface to the -->
-<!-- software and ensures our software is *conveniently callable* -->
+<!-- Testing forces us to *decouple* the software, since highly-coupled -->
+<!-- software is **more difficult to test** -->
 <!-- — Uncle Bob Martin -->
-</div>
-<div class="section" id="id24">
-
-<blockquote>
-<p>Testing forces us to <em>decouple</em> the software, since highly-coupled
-software is <strong>more difficult to test</strong></p>
-<p class="attribution">&mdash;Uncle Bob Martin</p>
-</blockquote>
 <!-- slide -->
 <!-- - - - - - -->
 <!-- | coupled: *combined, connected, joined* -->
@@ -216,11 +329,11 @@ software is <strong>more difficult to test</strong></p>
 <!-- *results* -->
 <!-- depend on **collaborations** and **mutable state** -->
 </div>
-<div class="section" id="id25">
+<div class="section" id="id42">
 
 <p>Is there an alternative?</p>
 </div>
-<div class="section" id="id26">
+<div class="section" id="id43">
 
 <p>Fake it: build API-compatible replacements
 for your dependencies with test fixture support</p>
@@ -230,7 +343,7 @@ for your dependencies with test fixture support</p>
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="id27">
+<div class="section" id="id44">
 
 <p>Fake it: build API-compatible replacements
 for your dependencies with test fixture support</p>
@@ -238,37 +351,25 @@ for your dependencies with test fixture support</p>
 <em>mechanisms</em> and pass <strong>simple data structures</strong>
 between the two</p>
 </div>
-<div class="section" id="id28">
+<div class="section" id="how">
 <h1>How?</h1>
 </div>
-<div class="section" id="pragmatic-pattern-1-promote-i-o">
-<h1>Pragmatic Pattern 1: Promote I/O</h1>
+<div class="section" id="this-talk">
+<h1>This talk</h1>
 </div>
-<div class="section" id="id29">
+<div class="section" id="id45">
 
-<p><em>Coupled procedures</em> are <strong>complex</strong></p>
-<!-- slide -->
-<!-- - - - - - -->
-<!-- | coupled: *combined, connected, joined* -->
-<!-- | -->
-<!-- | procedure: subroutine that relies on *mutable state* -->
-<!-- slide -->
-<!-- - - - - - -->
-<!-- *Coupled procedures* are **complex** because -->
-<!-- *results* -->
-<!-- depend on **collaborations** and **mutable state** -->
+<p><em>How do I recognize hidden complexity?</em></p>
 </div>
-<div class="section" id="id30">
+<div class="section" id="id46">
 
-<p>Promote I/O:</p>
-<p>decouple by separating</p>
-<p><em>domain policies</em> from <strong>I/O</strong></p>
+<p><em>What patterns can I apply to remedy it?</em></p>
 </div>
-<div class="section" id="id31">
+<div class="section" id="id47">
 
-<p>I/O lives in thin, “procedural glue” layer</p>
+<p><em>How do I organize larger systems?</em></p>
 </div>
-<div class="section" id="id32">
+<div class="section" id="id48">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
@@ -288,7 +389,53 @@ between the two</p>
     <span class="k">return</span> <span class="n">open_requests</span>
 </pre>
 </div>
-<div class="section" id="id33">
+<div class="section" id="pragmatic-pattern-1-promote-i-o">
+<h1>Pragmatic Pattern 1: Promote I/O</h1>
+<!-- slide -->
+<!-- - - - - - -->
+<!-- *Coupled procedures* are **complex** -->
+<!-- slide -->
+<!-- - - - - - -->
+<!-- | coupled: *combined, connected, joined* -->
+<!-- | -->
+<!-- | procedure: subroutine that relies on *mutable state* -->
+<!-- slide -->
+<!-- - - - - - -->
+<!-- *Coupled procedures* are **complex** because -->
+<!-- *results* -->
+<!-- depend on **collaborations** and **mutable state** -->
+</div>
+<div class="section" id="id49">
+
+<p>Promote I/O:</p>
+<p>decouple by separating</p>
+<p><em>domain policies</em> from <strong>I/O</strong></p>
+</div>
+<div class="section" id="id50">
+
+<p>I/O lives in thin, “procedural glue” layer</p>
+</div>
+<div class="section" id="id51">
+
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">'https://api.bitbucket.org/2.0/repositories/{}/{}/{}'</span> \
+        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="s">'pullrequests'</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c"># I/O</span>
+
+    <span class="n">open_requests</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pr</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">'values'</span><span class="p">]:</span>  <span class="c"># I/O</span>
+        <span class="n">open_requests</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s">'author'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'author'</span><span class="p">][</span><span class="s">'username'</span><span class="p">],</span>
+            <span class="s">'title'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'title'</span><span class="p">],</span>
+            <span class="s">'branch'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'source'</span><span class="p">][</span><span class="s">'branch'</span><span class="p">][</span><span class="s">'name'</span><span class="p">],</span>
+            <span class="s">'url'</span><span class="p">:</span> <span class="n">pr</span><span class="p">[</span><span class="s">'links'</span><span class="p">][</span><span class="s">'html'</span><span class="p">][</span><span class="s">'href'</span><span class="p">]</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">open_requests</span>
+</pre>
+</div>
+<div class="section" id="id52">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
@@ -308,11 +455,11 @@ between the two</p>
     <span class="err">······</span> <span class="err">·············</span>
 </pre>
 </div>
-<div class="section" id="id34">
+<div class="section" id="id53">
 
 <p>becomes</p>
 </div>
-<div class="section" id="id35">
+<div class="section" id="id54">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
@@ -337,7 +484,17 @@ between the two</p>
     <span class="k">return</span> <span class="n">open_requests</span>
 </pre>
 </div>
-<div class="section" id="id36">
+<div class="section" id="id55">
+
+<p>Highly abstracted, readable manager procedure</p>
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">build_url</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c"># I/O</span>
+    <span class="k">return</span> <span class="n">extract_pull_requests</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>  <span class="c"># I/O</span>
+</pre>
+</div>
+<div class="section" id="id56">
 
 <p>Policies are clearly separated from mechanisms</p>
 <pre class="code python literal-block">
@@ -358,7 +515,7 @@ between the two</p>
     <span class="k">return</span> <span class="n">open_requests</span>
 </pre>
 </div>
-<div class="section" id="id37">
+<div class="section" id="id57">
 
 <p>Policies are completely decoupled from I/O</p>
 <pre class="code python literal-block">
@@ -379,22 +536,12 @@ between the two</p>
     <span class="k">return</span> <span class="n">open_requests</span>
 </pre>
 </div>
-<div class="section" id="id38">
-
-<p>Highly abstracted, readable manager procedure</p>
-<pre class="code python literal-block">
-<span class="k">def</span> <span class="nf">get_open_pull_requests</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">build_url</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">repository</span><span class="p">)</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c"># I/O</span>
-    <span class="k">return</span> <span class="n">extract_pull_requests</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>  <span class="c"># I/O</span>
-</pre>
-</div>
-<div class="section" id="id39">
+<div class="section" id="id58">
 
 <p>Policies are easily testable using simple data</p>
 <!-- show examples -->
 </div>
-<div class="section" id="id40">
+<div class="section" id="id59">
 
 <p>Another problem</p>
 <blockquote>
@@ -405,7 +552,7 @@ between the two</p>
 </div>
 </blockquote>
 </div>
-<div class="section" id="id41">
+<div class="section" id="id60">
 
 <p>Here’s the idea:</p>
 <pre class="code python literal-block">
@@ -415,12 +562,10 @@ between the two</p>
          <span class="err">…</span><span class="p">]</span>
 </pre>
 </div>
-<div class="section" id="id42">
+<div class="section" id="id61">
 
-<div class="line-block">
-<div class="line">My first attempt</div>
-<div class="line"><br /></div>
-</div>
+<p>Eight| My first attempt
+|</p>
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">locate_paths_with_same_content</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
     <span class="n">file_map</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
@@ -432,7 +577,7 @@ between the two</p>
     <span class="k">return</span> <span class="n">file_map</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id43">
+<div class="section" id="id62">
 
 <div class="line-block">
 <div class="line"><tt class="docutils literal">locate_files()</tt> is a</div>
@@ -449,7 +594,7 @@ between the two</p>
     <span class="err">······</span> <span class="err">···············</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id44">
+<div class="section" id="id63">
 
 <div class="line-block">
 <div class="line"><tt class="docutils literal">hash_contents</tt> computes, say,</div>
@@ -469,11 +614,11 @@ between the two</p>
 <div class="section" id="q">
 <h1>Q:</h1>
 </div>
-<div class="section" id="id45">
+<div class="section" id="id64">
 <h1>Q:</h1>
 <p>How would you test this?</p>
 </div>
-<div class="section" id="id46">
+<div class="section" id="id65">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">locate_paths_with_same_content</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
@@ -486,34 +631,34 @@ between the two</p>
     <span class="k">return</span> <span class="n">file_map</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id47">
+<div class="section" id="id66">
 
 <p><tt class="docutils literal">locate_files()</tt> and <tt class="docutils literal">hash_contents()</tt></p>
 <p>are <em>embedded</em> within the procedure’s logic</p>
 </div>
-<div class="section" id="id48">
+<div class="section" id="id67">
 
 <p>As we have seen, coupling is not an abstract, theoretical problem</p>
 </div>
-<div class="section" id="id49">
+<div class="section" id="id68">
 
 <p><tt class="docutils literal">locate_files()</tt> and <tt class="docutils literal">hash_contents()</tt></p>
 <p>depend on the state of the disk</p>
 </div>
-<div class="section" id="id50">
+<div class="section" id="id69">
 
 <p>which means…</p>
 </div>
-<div class="section" id="id51">
+<div class="section" id="id70">
 
 <p><em>Your tests</em></p>
 <p>depend on the state of the disk</p>
 </div>
-<div class="section" id="id52">
+<div class="section" id="id71">
 
 <p>(or on the energy you’re willing to expend simulating that state)</p>
 </div>
-<div class="section" id="id53">
+<div class="section" id="id72">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">locate_paths_with_same_content</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
@@ -535,11 +680,11 @@ between the two</p>
 <!-- file_map[file_hash].add(path) -->
 <!-- return file_map.values() -->
 </div>
-<div class="section" id="id54">
+<div class="section" id="id73">
 
 <p>A <em>(very short)</em> walk down the path of destruction</p>
 </div>
-<div class="section" id="id55">
+<div class="section" id="id74">
 
 <div class="line-block">
 <div class="line">“Well, we could create a</div>
@@ -547,7 +692,7 @@ between the two</p>
 <div class="line"><strong>known values</strong>, …”</div>
 </div>
 </div>
-<div class="section" id="id56">
+<div class="section" id="id75">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">test_simple_case</span><span class="p">():</span>
@@ -557,42 +702,42 @@ between the two</p>
         <span class="k">assert</span> <span class="n">magical_expected_value</span> <span class="o">==</span> <span class="n">locate_paths_with_same_content</span><span class="p">(</span><span class="n">temproot</span><span class="p">)</span>
 </pre>
 </div>
-<div class="section" id="id57">
+<div class="section" id="id76">
 
 <p><em>Simple</em> is better than <strong>complex</strong></p>
 </div>
-<div class="section" id="id58">
+<div class="section" id="id77">
 
 <p>This isn’t <em>simple</em>…</p>
 </div>
-<div class="section" id="id59">
+<div class="section" id="id78">
 
 <p>You’ll need context managers for</p>
 <p><em>various classes</em> of test cases</p>
 </div>
-<div class="section" id="id60">
+<div class="section" id="id79">
 
 <p>Realistically,</p>
 <p><em>how many test cases</em></p>
 <p>will you have the <strong>energy</strong> to write this way?</p>
 </div>
-<div class="section" id="id61">
+<div class="section" id="id80">
 
 <p>It’ll be slow</p>
 <p>slow → inefficient</p>
 </div>
-<div class="section" id="id62">
+<div class="section" id="id81">
 
 <p>Stepping back</p>
 </div>
-<div class="section" id="id63">
+<div class="section" id="id82">
 
 <p><em>What do we</em> <strong>actually care about</strong> <em>here?</em></p>
 </div>
-<div class="section" id="id64">
+<div class="section" id="id83">
 <h1>?</h1>
 </div>
-<div class="section" id="id65">
+<div class="section" id="id84">
 
 <blockquote>
 <div class="line-block">
@@ -602,7 +747,7 @@ between the two</p>
 </div>
 </blockquote>
 </div>
-<div class="section" id="id66">
+<div class="section" id="id85">
 
 <div class="line-block">
 <div class="line"><em>assume</em> <tt class="docutils literal">os.walk()</tt> works…</div>
@@ -610,13 +755,13 @@ between the two</p>
 <div class="line"><em>assume</em> <tt class="docutils literal"><span class="pre">sha256(…).digest()</span></tt> works…</div>
 </div>
 </div>
-<div class="section" id="id67">
+<div class="section" id="id86">
 
 <p>in other words,</p>
 <p>if we subtract these assumptions</p>
 <p>from our subroutine</p>
 </div>
-<div class="section" id="id68">
+<div class="section" id="id87">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">locate_paths_with_same_content</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
@@ -629,7 +774,7 @@ between the two</p>
     <span class="k">return</span> <span class="n">file_map</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id69">
+<div class="section" id="id88">
 
 <p>We care that</p>
 <ul class="simple">
@@ -638,7 +783,7 @@ between the two</p>
 <li>if they’re annotated with the same <strong>value</strong> (content hash)</li>
 </ul>
 </div>
-<div class="section" id="id70">
+<div class="section" id="id89">
 
 <p>For our testing purposes,</p>
 <p><em>coupling</em> is a <strong>distraction</strong></p>
@@ -670,11 +815,11 @@ between the two</p>
 <!-- - - - - - -->
 <!-- First, an easy fix… -->
 </div>
-<div class="section" id="id71">
+<div class="section" id="id90">
 
 <p>First, apply Pattern 1: <strong>Promote I/O</strong></p>
 </div>
-<div class="section" id="id72">
+<div class="section" id="id91">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">locate_paths_with_same_content</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
@@ -690,14 +835,14 @@ between the two</p>
     <span class="k">return</span> <span class="n">file_map</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id73">
+<div class="section" id="id92">
 
 <p>Already an improvement, but…</p>
 </div>
 <div class="section" id="how-do-we-get-rid-of-hash-contents">
 <h1>How do we get rid of <tt class="docutils literal">hash_contents()</tt>?</h1>
 </div>
-<div class="section" id="id74">
+<div class="section" id="id93">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">paths_with_same_hash</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
@@ -713,7 +858,7 @@ between the two</p>
 <div class="section" id="pragmatic-pattern-2-data-and-transforms">
 <h1>Pragmatic Pattern 2: Data and Transforms</h1>
 </div>
-<div class="section" id="id75">
+<div class="section" id="id94">
 
 <div class="line-block">
 <div class="line"><em>Data</em> and <em>transforms</em> are easier</div>
@@ -721,7 +866,7 @@ between the two</p>
 <div class="line">than <strong>coupled procedures</strong></div>
 </div>
 </div>
-<div class="section" id="id76">
+<div class="section" id="id95">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">paths_with_same_hash</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
@@ -734,7 +879,7 @@ between the two</p>
     <span class="k">return</span> <span class="n">file_map</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id77">
+<div class="section" id="id96">
 
 <dl class="docutils">
 <dt>policy</dt>
@@ -752,12 +897,12 @@ between the two</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="id78">
+<div class="section" id="id97">
 
 <p><strong>Data and Transforms</strong>: recast this to operate on
 an annotated transform</p>
 </div>
-<div class="section" id="id79">
+<div class="section" id="id98">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">locate_paths_with_same_content</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
@@ -777,7 +922,7 @@ an annotated transform</p>
     <span class="k">return</span> <span class="n">file_map</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id80">
+<div class="section" id="id99">
 
 <div class="line-block">
 <div class="line">Transform produces <em>simple data values</em></div>
@@ -788,7 +933,7 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">[(</span><span class="n">hash_contents</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>
 </pre>
 </div>
-<div class="section" id="id81">
+<div class="section" id="id100">
 
 <p>Policy is a <em>pure function</em> that operates on <strong>simple data values</strong></p>
 <pre class="code python literal-block">
@@ -801,11 +946,11 @@ an annotated transform</p>
     <span class="k">return</span> <span class="n">file_map</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id82">
+<div class="section" id="id101">
 
 <p>From my domain: has a candidate reached the application limit for an exam?</p>
 </div>
-<div class="section" id="id83">
+<div class="section" id="id102">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">get_available_sections</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">exam_type</span><span class="p">,</span> <span class="err">…</span><span class="p">):</span>
@@ -833,12 +978,12 @@ an annotated transform</p>
                     <span class="n">handle_application_limit_reached</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id84">
+<div class="section" id="id103">
 
 <p>Don’t try to read it,</p>
 <p>just scan for overall structure</p>
 </div>
-<div class="section" id="id85">
+<div class="section" id="id104">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">get_available_sections</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">exam_type</span><span class="p">,</span> <span class="err">…</span><span class="p">):</span>
@@ -866,7 +1011,7 @@ an annotated transform</p>
                     <span class="n">handle_application_limit_reached</span><span class="p">()</span>
 </pre>
 </div>
-<div class="section" id="id86">
+<div class="section" id="id105">
 
 <p>Danger signs</p>
 <ul class="simple">
@@ -878,18 +1023,18 @@ an annotated transform</p>
 <span class="k">def</span> <span class="nf">get_available_sections</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">exam_type</span><span class="p">,</span> <span class="err">…</span><span class="p">):</span>
 </pre>
 </div>
-<div class="section" id="id87">
+<div class="section" id="id106">
 
 <p>Let’s tackle <tt class="docutils literal">fail_dates</tt>, applying multiple Pattern 2 transforms…</p>
 </div>
 <div class="section" id="pragmatic-pattern-3-pipeline">
 <h1>Pragmatic Pattern 3: Pipeline</h1>
 </div>
-<div class="section" id="id88">
+<div class="section" id="id107">
 
 <p>Handling of <tt class="docutils literal">fail_dates</tt> is obscure, spread out</p>
 </div>
-<div class="section" id="id89">
+<div class="section" id="id108">
 
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">get_available_sections</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">exam_type</span><span class="p">,</span> <span class="err">…</span><span class="p">):</span>
@@ -912,7 +1057,7 @@ an annotated transform</p>
                 <span class="n">limit_date</span> <span class="o">=</span> <span class="n">fail_dates</span><span class="p">[</span><span class="o">-</span><span class="n">exam_type</span><span class="o">.</span><span class="n">application_limit</span><span class="p">]</span> <span class="o">+</span> <span class="err">…</span>
 </pre>
 </div>
-<div class="section" id="id90">
+<div class="section" id="id109">
 
 <p>Input data: candidate applications</p>
 <pre class="code python literal-block">
@@ -922,11 +1067,11 @@ an annotated transform</p>
     <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">user</span><span class="o">.</span><span class="n">applications</span><span class="p">:</span>
 </pre>
 </div>
-<div class="section" id="id91">
+<div class="section" id="id110">
 
 <p>Four transforms</p>
 </div>
-<div class="section" id="id92">
+<div class="section" id="id111">
 
 <p>Filter out withdrawn applications:</p>
 <pre class="code python literal-block">
@@ -938,7 +1083,7 @@ an annotated transform</p>
                 <span class="n">fail_dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exam_date</span><span class="p">)</span>
 </pre>
 </div>
-<div class="section" id="id93">
+<div class="section" id="id112">
 
 <p>Filter out applications for other exams:</p>
 <pre class="code python literal-block">
@@ -950,7 +1095,7 @@ an annotated transform</p>
                 <span class="n">fail_dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exam_date</span><span class="p">)</span>
 </pre>
 </div>
-<div class="section" id="id94">
+<div class="section" id="id113">
 
 <p>Extract the exam date</p>
 <pre class="code python literal-block">
@@ -964,16 +1109,16 @@ an annotated transform</p>
 <p>–  and –</p>
 <p>Sort the result</p>
 </div>
-<div class="section" id="id95">
+<div class="section" id="id114">
 
 <p>Obscure purpose,</p>
 <p>Cryptic implementation</p>
 </div>
-<div class="section" id="id96">
+<div class="section" id="id115">
 
 <p>Pipeline: apply a <em>series</em> of transforms to achieve the result you need</p>
 </div>
-<div class="section" id="id97">
+<div class="section" id="id116">
 
 <p>Filter out withdrawn applications:</p>
 <pre class="code python literal-block">
@@ -982,7 +1127,7 @@ an annotated transform</p>
             <span class="k">if</span> <span class="n">application</span><span class="o">.</span><span class="n">status_name</span> <span class="o">!=</span> <span class="s">'withdrawn'</span><span class="p">]</span>
 </pre>
 </div>
-<div class="section" id="id98">
+<div class="section" id="id117">
 
 <p>Filter applications to the correct type:</p>
 <pre class="code python literal-block">
@@ -991,33 +1136,33 @@ an annotated transform</p>
             <span class="k">if</span> <span class="n">application</span><span class="o">.</span><span class="n">exam_type</span> <span class="o">==</span> <span class="n">exam_type</span><span class="p">]</span>
 </pre>
 </div>
-<div class="section" id="id99">
+<div class="section" id="id118">
 
 <pre class="code python literal-block">
 <span class="n">prior_apps</span> <span class="o">=</span> <span class="n">not_withdrawn</span><span class="p">(</span><span class="n">by_type</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">applications</span><span class="p">,</span> <span class="n">exam_type</span><span class="p">))</span>
 <span class="n">fail_dates</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exam_date</span> <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">prior_apps</span><span class="p">)</span>
 </pre>
 </div>
-<div class="section" id="id100">
+<div class="section" id="id119">
 
 <p>So far</p>
 </div>
-<div class="section" id="id101">
+<div class="section" id="id120">
 
 <p>build new or <strong>transform existing</strong> systems</p>
 <p>such that they are</p>
 <p><em>understandable, testable, maintainable</em></p>
 </div>
-<div class="section" id="id102">
+<div class="section" id="id121">
 
 <p>A common approach uses <strong>coupled procedures</strong></p>
 <p>with <em>fake implementations</em> for testing</p>
 </div>
-<div class="section" id="id103">
+<div class="section" id="id122">
 
 <p>instead…</p>
 </div>
-<div class="section" id="id104">
+<div class="section" id="id123">
 
 <p>Build systems around</p>
 <p><strong>functional transforms</strong></p>
@@ -1026,83 +1171,83 @@ an annotated transform</p>
 <div class="section" id="objection">
 <h1>Objection!</h1>
 </div>
-<div class="section" id="id105">
+<div class="section" id="id124">
 
 <p>No one argues the</p>
 <p><em>high-level expressivity</em> &amp; <em>convenient testability</em></p>
 <p>of <strong>pure functions</strong></p>
 </div>
-<div class="section" id="id106">
+<div class="section" id="id125">
 
 <p>So what’s the problem?</p>
 </div>
-<div class="section" id="id107">
+<div class="section" id="id126">
 
 <pre class="code python literal-block">
 <span class="o">&gt;&gt;&gt;</span> <span class="n">objections</span> <span class="o">=</span> <span class="p">{</span><span class="s">'a'</span><span class="p">}</span> <span class="o">|</span> <span class="p">{</span><span class="s">'b'</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id108">
+<div class="section" id="id127">
 
 <p>“That’s a fine academic toy,</p>
 <p>but it can’t build <strong>real</strong> systems.”</p>
 </div>
-<div class="section" id="id109">
+<div class="section" id="id128">
 
 <p>(“real” generally being a euphemism</p>
 <p>for “HTML-producing” ;)</p>
 </div>
-<div class="section" id="id110">
+<div class="section" id="id129">
 
 <p>“We can’t afford to</p>
 <p><strong>rewrite</strong></p>
 <p>our <em>whole system</em>!”</p>
 </div>
-<div class="section" id="id111">
+<div class="section" id="id130">
 
 <p>These concerns are understandable,</p>
 </div>
-<div class="section" id="id112">
+<div class="section" id="id131">
 
 <p>but not <em>true</em></p>
 </div>
 <div class="section" id="claim">
 <h1>Claim</h1>
 </div>
-<div class="section" id="id113">
+<div class="section" id="id132">
 
 <p>You don’t <em>need</em> a full rewrite</p>
 </div>
-<div class="section" id="id114">
+<div class="section" id="id133">
 
 <p>(and you definitely <strong>should not</strong> attempt one)</p>
 </div>
-<div class="section" id="id115">
+<div class="section" id="id134">
 
 <p>You <em>can</em> build real systems this way</p>
 </div>
-<div class="section" id="id116">
+<div class="section" id="id135">
 
 <p><em>Simple</em> is better than <strong>complex</strong></p>
 </div>
-<div class="section" id="id117">
+<div class="section" id="id136">
 
 <p>Build systems around</p>
 <p><strong>functional transforms</strong></p>
 <p>of <em>simple values</em> and <em>data structures</em></p>
 </div>
-<div class="section" id="id118">
+<div class="section" id="id137">
 <h1>How?</h1>
 </div>
-<div class="section" id="id119">
+<div class="section" id="id138">
 
 <p>Apply the Clean Architecture</p>
 </div>
-<div class="section" id="id120">
+<div class="section" id="id139">
 
 <img alt="static/CleanArchitecture.jpg" src="static/CleanArchitecture.jpg" />
 </div>
-<div class="section" id="id121">
+<div class="section" id="id140">
 
 <div class="line-block">
 <div class="line">“In general, the <em>further in</em> you go,</div>
@@ -1111,7 +1256,7 @@ an annotated transform</p>
 <div class="line">The <em>inner circles</em> are policies.”</div>
 </div>
 </div>
-<div class="section" id="id122">
+<div class="section" id="id141">
 
 <div class="line-block">
 <div class="line">“The important thing is</div>
@@ -1119,7 +1264,7 @@ an annotated transform</p>
 <div class="line">are passed across the boundaries.”</div>
 </div>
 </div>
-<div class="section" id="id123">
+<div class="section" id="id142">
 
 <div class="line-block">
 <div class="line">“When any of the <em>external parts</em></div>
@@ -1134,7 +1279,7 @@ an annotated transform</p>
 <h1>Pragmatic Architecture Patterns</h1>
 <p>Tools for applying the Clean Architecture to <em>existing systems</em> and new work</p>
 </div>
-<div class="section" id="id124">
+<div class="section" id="id143">
 <h1>Pragmatic Architecture Patterns</h1>
 <ol class="arabic simple">
 <li>Promote I/O</li>
@@ -1142,15 +1287,15 @@ an annotated transform</p>
 <li>Pipeline</li>
 </ol>
 </div>
-<div class="section" id="id125">
+<div class="section" id="id144">
 
 <p>How do you organize a system this way?</p>
 </div>
-<div class="section" id="id126">
+<div class="section" id="id145">
 
 <p>Another real example</p>
 </div>
-<div class="section" id="id127">
+<div class="section" id="id146">
 
 <pre class="code python literal-block">
 <span class="nd">&#64;expose</span><span class="p">()</span>
@@ -1177,7 +1322,7 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id128">
+<div class="section" id="id147">
 
 <p>Fetch the agreement to delete from the ORM</p>
 <pre class="code python literal-block">
@@ -1187,7 +1332,7 @@ an annotated transform</p>
     <span class="c">#                                                              …</span>
 </pre>
 </div>
-<div class="section" id="id129">
+<div class="section" id="id148">
 
 <p>Check that it is not yet active</p>
 <pre class="code python literal-block">
@@ -1201,7 +1346,7 @@ an annotated transform</p>
 </pre>
 <p>(and format a message back if it is)</p>
 </div>
-<div class="section" id="id130">
+<div class="section" id="id149">
 
 <p>and that it is not the only agreement</p>
 <pre class="code python literal-block">
@@ -1214,7 +1359,7 @@ an annotated transform</p>
     <span class="c">#                                                              …</span>
 </pre>
 </div>
-<div class="section" id="id131">
+<div class="section" id="id150">
 
 <div class="line-block">
 <div class="line">Adjust either the previous or next</div>
@@ -1232,7 +1377,7 @@ an annotated transform</p>
             <span class="n">next_agreement</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">agreement</span><span class="o">.</span><span class="n">start_date</span>
 </pre>
 </div>
-<div class="section" id="id132">
+<div class="section" id="id151">
 
 <p>Engage</p>
 <pre class="code python literal-block">
@@ -1243,18 +1388,18 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id133">
+<div class="section" id="id152">
 
 <p>So what’s the problem?</p>
 </div>
-<div class="section" id="id134">
+<div class="section" id="id153">
 <h1>Q:</h1>
 </div>
-<div class="section" id="id135">
+<div class="section" id="id154">
 <h1>Q:</h1>
 <p>How would you test this?</p>
 </div>
-<div class="section" id="id136">
+<div class="section" id="id155">
 
 <p>How would you test</p>
 <ul class="simple">
@@ -1263,7 +1408,7 @@ an annotated transform</p>
 <li>≥ 5 axes of responsibility</li>
 </ul>
 </div>
-<div class="section" id="id137">
+<div class="section" id="id156">
 
 <pre class="code python literal-block">
 <span class="nd">&#64;expose</span><span class="p">()</span>
@@ -1290,10 +1435,10 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id138">
+<div class="section" id="id157">
 <h1>Q:</h1>
 </div>
-<div class="section" id="id139">
+<div class="section" id="id158">
 <h1>Q:</h1>
 <p>How would you implement</p>
 <p><strong>custom rules</strong></p>
@@ -1305,7 +1450,7 @@ an annotated transform</p>
 <p><strong>delete()</strong></p>
 <p>to a purely functional form?</p>
 </div>
-<div class="section" id="id140">
+<div class="section" id="id159">
 
 <p>(for Pete’s sake, dan, even the <em>name</em> has state mutation in it!)</p>
 </div>
@@ -1313,13 +1458,13 @@ an annotated transform</p>
 <h1>Pragmatic Pattern 4: FauxO</h1>
 <p>Functional core, imperative shell</p>
 </div>
-<div class="section" id="id141">
+<div class="section" id="id160">
 
 <p>Imperative shell:</p>
 <p><strong>procedural “glue”</strong>  that offers</p>
 <p>an <em>OO interface</em> &amp; <em>manages dependencies</em></p>
 </div>
-<div class="section" id="id142">
+<div class="section" id="id161">
 
 <p>Functional core:</p>
 <p>implements <strong>all</strong> the <em>decisions</em></p>
@@ -1328,15 +1473,15 @@ an annotated transform</p>
 <h1>Key rule</h1>
 <p>Never mix <em>decisions</em> and <strong>dependencies</strong></p>
 </div>
-<div class="section" id="id143">
+<div class="section" id="id162">
 
 <p><em>logic</em> goes only in the <strong>functional core</strong></p>
 </div>
-<div class="section" id="id144">
+<div class="section" id="id163">
 
 <p><em>dependencies</em> go only in the <strong>imperative shell</strong></p>
 </div>
-<div class="section" id="id145">
+<div class="section" id="id164">
 
 <pre class="code python literal-block">
 <span class="nd">&#64;expose</span><span class="p">()</span>
@@ -1363,11 +1508,11 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id146">
+<div class="section" id="id165">
 
 <p>becomes</p>
 </div>
-<div class="section" id="id147">
+<div class="section" id="id166">
 
 <pre class="code python literal-block">
 <span class="nd">&#64;expose</span><span class="p">()</span>
@@ -1377,16 +1522,16 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="n">success</span><span class="p">,</span> <span class="s">'msg'</span><span class="p">:</span> <span class="n">msg</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id148">
+<div class="section" id="id167">
 
 <p>Our HTTP endpoint now does its</p>
 <p><em>one job</em></p>
 </div>
-<div class="section" id="id149">
+<div class="section" id="id168">
 
 <p>call routing</p>
 </div>
-<div class="section" id="id150">
+<div class="section" id="id169">
 
 <pre class="code python literal-block">
 <span class="nd">&#64;expose</span><span class="p">()</span>
@@ -1396,11 +1541,11 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="n">success</span><span class="p">,</span> <span class="s">'msg'</span><span class="p">:</span> <span class="n">msg</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id151">
+<div class="section" id="id170">
 
 <p>We’ve reduced its <strong>responsibility surface</strong> four fold</p>
 </div>
-<div class="section" id="id152">
+<div class="section" id="id171">
 
 <p>It no longer has to change with</p>
 <div class="line-block">
@@ -1410,7 +1555,7 @@ an annotated transform</p>
 <div class="line">the gap adjustment rules</div>
 </div>
 </div>
-<div class="section" id="id153">
+<div class="section" id="id172">
 
 <pre class="code python literal-block">
 <span class="nd">&#64;expose</span><span class="p">()</span>
@@ -1420,15 +1565,15 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="n">success</span><span class="p">,</span> <span class="s">'msg'</span><span class="p">:</span> <span class="n">msg</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id154">
+<div class="section" id="id173">
 
 <p><tt class="docutils literal">agreements</tt> is a <em>manager</em> object in the imperative shell</p>
 </div>
-<div class="section" id="id155">
+<div class="section" id="id174">
 
 <p><tt class="docutils literal">agreements</tt> gathers all the dependencies: stateful objects, system settings, required libraries</p>
 </div>
-<div class="section" id="id156">
+<div class="section" id="id175">
 
 <p>What does it look like?</p>
 </div>
@@ -1451,34 +1596,34 @@ an annotated transform</p>
     <span class="k">return</span> <span class="n">removable</span><span class="p">,</span> <span class="n">reason</span>
 </pre>
 </div>
-<div class="section" id="id157">
+<div class="section" id="id176">
 
 <p>Notice the pivot</p>
 </div>
-<div class="section" id="id158">
+<div class="section" id="id177">
 
 <p><tt class="docutils literal">agreement.delete()</tt> is a mutation applied to a persisted (dependent) object</p>
 </div>
-<div class="section" id="id159">
+<div class="section" id="id178">
 
 <p>whereas</p>
 </div>
-<div class="section" id="id160">
+<div class="section" id="id179">
 
 <p><tt class="docutils literal">is_removable()</tt> is logic that can be applied to a simple data structure</p>
 </div>
-<div class="section" id="id161">
+<div class="section" id="id180">
 
 <p>Build systems around</p>
 <p><strong>functional transforms</strong></p>
 <p>of <em>simple values</em> and <em>data structures</em></p>
 </div>
-<div class="section" id="id162">
+<div class="section" id="id181">
 
 <p>What do we mean by</p>
 <p><em>simple values</em> and <em>data structures</em></p>
 </div>
-<div class="section" id="id163">
+<div class="section" id="id182">
 
 <ul class="simple">
 <li>atomic types: <tt class="docutils literal">str</tt>, <tt class="docutils literal">int</tt>, …</li>
@@ -1486,18 +1631,18 @@ an annotated transform</p>
 <li>collections of same: <tt class="docutils literal">list</tt>, <tt class="docutils literal">set</tt>, <tt class="docutils literal">dict</tt></li>
 </ul>
 </div>
-<div class="section" id="id164">
+<div class="section" id="id183">
 
 <p>Litmus test: <tt class="docutils literal">is_removable()</tt> should work on a plain, non-ORM object</p>
 </div>
-<div class="section" id="id165">
+<div class="section" id="id184">
 
 <pre class="code python literal-block">
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">Agreement</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">'Agreement'</span><span class="p">,</span> <span class="s">'start_date end_date'</span><span class="p">)</span>
 </pre>
 </div>
-<div class="section" id="id166">
+<div class="section" id="id185">
 
 <pre class="code python literal-block">
 <span class="c"># agreements_core.py                               (functional core)</span>
@@ -1513,7 +1658,7 @@ an annotated transform</p>
 <span class="o">...</span>         <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">None</span>
 </pre>
 </div>
-<div class="section" id="id167">
+<div class="section" id="id186">
 
 <pre class="code python literal-block">
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
@@ -1523,7 +1668,7 @@ an annotated transform</p>
 <span class="bp">False</span>
 </pre>
 </div>
-<div class="section" id="id168">
+<div class="section" id="id187">
 
 <pre class="code python literal-block">
 <span class="o">&gt;&gt;&gt;</span> <span class="n">really_planning_ahead</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">3025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -1535,11 +1680,11 @@ an annotated transform</p>
 <span class="bp">True</span>
 </pre>
 </div>
-<div class="section" id="id169">
+<div class="section" id="id188">
 
 <p>So where were we?</p>
 </div>
-<div class="section" id="id170">
+<div class="section" id="id189">
 
 <pre class="code python literal-block">
 <span class="c"># agreements.py (step 2)                          (imperative shell)</span>
@@ -1558,7 +1703,7 @@ an annotated transform</p>
     <span class="k">return</span> <span class="n">removable</span><span class="p">,</span> <span class="n">reason</span>
 </pre>
 </div>
-<div class="section" id="id171">
+<div class="section" id="id190">
 
 <p>With the date adjustments</p>
 <pre class="code python literal-block">
@@ -1584,11 +1729,11 @@ an annotated transform</p>
     <span class="k">return</span> <span class="n">removable</span><span class="p">,</span> <span class="n">reason</span>
 </pre>
 </div>
-<div class="section" id="id172">
+<div class="section" id="id191">
 
 <p>Challenge: disentangle the mutation from the rules</p>
 </div>
-<div class="section" id="id173">
+<div class="section" id="id192">
 
 <p>Rules</p>
 <ul class="simple">
@@ -1600,7 +1745,7 @@ an annotated transform</p>
 <h1>Pragmatic Pattern 5: Delegated value</h1>
 <p>Shell assigns a value computed by the core</p>
 </div>
-<div class="section" id="id174">
+<div class="section" id="id193">
 
 <pre class="code python literal-block">
 <span class="c"># agreements.py (step 3)                          (imperative shell)</span>
@@ -1619,7 +1764,7 @@ an annotated transform</p>
     <span class="k">return</span> <span class="n">removable</span><span class="p">,</span> <span class="n">reason</span>
 </pre>
 </div>
-<div class="section" id="id175">
+<div class="section" id="id194">
 
 <pre class="code python literal-block">
 <span class="c"># agreements.py (step 3)                          (imperative shell)</span>
@@ -1633,7 +1778,7 @@ an annotated transform</p>
         <span class="n">agreement</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end</span>
 </pre>
 </div>
-<div class="section" id="id176">
+<div class="section" id="id195">
 
 <p>Find ordered pairs of agreements with gaps between them…</p>
 <pre class="code python literal-block">
@@ -1645,7 +1790,7 @@ an annotated transform</p>
         <span class="c"># …</span>
 </pre>
 </div>
-<div class="section" id="id177">
+<div class="section" id="id196">
 
 <div class="line-block">
 <div class="line">and for each,</div>
@@ -1659,7 +1804,7 @@ an annotated transform</p>
         <span class="n">agreement</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end</span>
 </pre>
 </div>
-<div class="section" id="id178">
+<div class="section" id="id197">
 
 <p>The core implements the rules</p>
 <ul class="simple">
@@ -1667,7 +1812,7 @@ an annotated transform</p>
 <li>what the new dates should be</li>
 </ul>
 </div>
-<div class="section" id="id179">
+<div class="section" id="id198">
 
 <p>a little <tt class="docutils literal">itertools</tt> help (from stdlib docs)</p>
 <pre class="code python literal-block">
@@ -1679,7 +1824,7 @@ an annotated transform</p>
 <span class="o">...</span>     <span class="k">return</span> <span class="n">izip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 </pre>
 </div>
-<div class="section" id="id180">
+<div class="section" id="id199">
 
 <pre class="code python literal-block">
 <span class="c"># agreements_core.py (step 3)                      (functional core)</span>
@@ -1700,15 +1845,15 @@ an annotated transform</p>
 <!-- slide -->
 <!-- - - - - - -->
 </div>
-<div class="section" id="id181">
+<div class="section" id="id200">
 
 <p>Stepping back</p>
 </div>
-<div class="section" id="id182">
+<div class="section" id="id201">
 
 <p>We started here</p>
 </div>
-<div class="section" id="id183">
+<div class="section" id="id202">
 
 <pre class="code python literal-block">
 <span class="nd">&#64;expose</span><span class="p">()</span>
@@ -1735,17 +1880,17 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id184">
+<div class="section" id="id203">
 
 <p>mixed responsibilities</p>
 <p>unclear rules</p>
 <p>monolithic expression of intent</p>
 </div>
-<div class="section" id="id185">
+<div class="section" id="id204">
 
 <p>Practically untestable</p>
 </div>
-<div class="section" id="id186">
+<div class="section" id="id205">
 
 <p>Our functional core</p>
 <pre class="code python literal-block">
@@ -1761,7 +1906,7 @@ an annotated transform</p>
 <span class="o">...</span>         <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">None</span>
 </pre>
 </div>
-<div class="section" id="id187">
+<div class="section" id="id206">
 
 <p>Functional core (cont.)</p>
 <pre class="code python literal-block">
@@ -1776,7 +1921,7 @@ an annotated transform</p>
 <span class="o">...</span>             <span class="k">yield</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">start_date</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">start_date</span>
 </pre>
 </div>
-<div class="section" id="id188">
+<div class="section" id="id207">
 
 <div class="line-block">
 <div class="line">Eminently readable</div>
@@ -1784,7 +1929,7 @@ an annotated transform</p>
 <div class="line"><em>single level of abstraction</em></div>
 </div>
 </div>
-<div class="section" id="id189">
+<div class="section" id="id208">
 
 <pre class="code python literal-block">
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">is_removable</span><span class="p">(</span><span class="n">agreement</span><span class="p">,</span> <span class="n">all_agreements</span><span class="p">,</span> <span class="n">remove_callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
@@ -1799,18 +1944,18 @@ an annotated transform</p>
 <span class="o">...</span>         <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">None</span>
 </pre>
 </div>
-<div class="section" id="id190">
+<div class="section" id="id209">
 
 <p>Easily testable using <em>simple data structures</em></p>
 </div>
-<div class="section" id="id191">
+<div class="section" id="id210">
 
 <ul class="simple">
 <li>no special setup</li>
 <li>test calls are symmetric with production calls</li>
 </ul>
 </div>
-<div class="section" id="id192">
+<div class="section" id="id211">
 
 <p>Clear assignment of responsibilities</p>
 <ul class="simple">
@@ -1819,13 +1964,13 @@ an annotated transform</p>
 <li>Endpoint → dispatch</li>
 </ul>
 </div>
-<div class="section" id="id193">
+<div class="section" id="id212">
 
 <p>FauxO interface provides a</p>
 <p><em>familiar façade</em></p>
 <p>to the rest of the system</p>
 </div>
-<div class="section" id="id194">
+<div class="section" id="id213">
 
 <p>Our HTTP endpoint</p>
 <pre class="code python literal-block">
@@ -1836,7 +1981,7 @@ an annotated transform</p>
     <span class="k">return</span> <span class="p">{</span><span class="s">'success'</span><span class="p">:</span> <span class="n">success</span><span class="p">,</span> <span class="s">'msg'</span><span class="p">:</span> <span class="n">msg</span><span class="p">}</span>
 </pre>
 </div>
-<div class="section" id="id195">
+<div class="section" id="id214">
 
 <p>Our imperative shell</p>
 <pre class="code python literal-block">
@@ -1854,7 +1999,7 @@ an annotated transform</p>
     <span class="k">return</span> <span class="n">removable</span><span class="p">,</span> <span class="n">reason</span>
 </pre>
 </div>
-<div class="section" id="id196">
+<div class="section" id="id215">
 
 <p>Imperative shell (cont.)</p>
 <pre class="code python literal-block">
@@ -1867,30 +2012,30 @@ an annotated transform</p>
         <span class="n">agreement</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end</span>
 </pre>
 </div>
-<div class="section" id="id197">
+<div class="section" id="id216">
 
 <p>This example is from a</p>
 <p><em>real system</em></p>
 <p>that serves</p>
 <p><em>real HTML</em>!</p>
 </div>
-<div class="section" id="id198">
+<div class="section" id="id217">
 
 <p>No ivory tower constructions here</p>
 </div>
-<div class="section" id="id199">
+<div class="section" id="id218">
 
 </div>
-<div class="section" id="id200">
+<div class="section" id="id219">
 
 <p>T.S. Eliot</p>
 </div>
-<div class="section" id="id201">
+<div class="section" id="id220">
 
 <blockquote>
 Immature poets imitate;</blockquote>
 </div>
-<div class="section" id="id202">
+<div class="section" id="id221">
 
 <blockquote>
 <p>Immature poets imitate;</p>
@@ -1898,17 +2043,17 @@ Immature poets imitate;</blockquote>
 <p class="attribution">&mdash;T.S. Eliot</p>
 </blockquote>
 </div>
-<div class="section" id="id203">
+<div class="section" id="id222">
 
 <p>Special thanks to</p>
 <p>Brandon Rhodes the Great</p>
 <p>from whom I’ve stolen many ideas over the years</p>
 </div>
-<div class="section" id="id204">
+<div class="section" id="id223">
 
 <p>Thank you!</p>
 </div>
-<div class="section" id="id205">
+<div class="section" id="id224">
 
 <p>♥</p>
 <p>&#64;drocco007</p>
