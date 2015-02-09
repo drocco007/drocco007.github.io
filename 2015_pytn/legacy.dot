@@ -1,0 +1,41 @@
+graph {
+splines=false;
+graph [rankdir=LR];
+node [penwidth=2 color="#DAB21D"
+      style=filled fillcolor="#F4E5AD"]
+{rank=same
+"Exam
+Application
+Shell" [ shape = rect ]
+"Exam
+Application
+Core" [ shape = circle ]
+}
+node [shape=rect penwidth=2 color="#708BA6"
+      style=filled fillcolor="#DCE9ED"]
+{rank=same
+"Candidate
+Shell"
+"Legacy
+Exam Type
+Subsystem" [shape=diamond penwidth=2]
+}
+
+node [shape=oval penwidth=0 style=filled fillcolor="#E8EED2"
+      margin="0.05,0"]
+"Exam
+Application
+Shell" -- "Candidate
+Shell" [ label = "Simple Data"]
+"Exam
+Application
+Shell" -- "Exam
+Application
+Core" [ label = "Simple    
+Data    "]
+"Exam
+Application
+Shell" -- "Legacy
+Exam Type
+Subsystem" [ label = "Simple Data"]
+}

@@ -3,6 +3,18 @@
     <br/>
 
 
+slide
+-----
+
+slide
+-----
+
+    “You wanted a banana but what you got was a gorilla holding the
+    banana and the entire jungle.”
+
+    —Joe Armstrong
+
+
 Clean and Green
 ---------------
 
@@ -124,14 +136,24 @@ slide
 
 The external interface is convenient
 
+.. fake function to make the doctest pass... sigh.
+..
+    >>> def get_open_pull_requests(*args):
+    ...     return [{
+    ...         'author': 'pauline',
+    ...         'title': 'Never Said I Was an Angel',
+    ...     }]
+
+
 .. code-block:: python
 
-    >>> get_open_pull_requests('drocco', 'some_repo')
-    [{
-        'author': 'pauline',
-        'title': 'Never Said I Was an Angel',
-        …
-    },]
+    >>> get_open_pull_requests('drocco', 'some_repo')  # doctest: +NORMALIZE_WHITESPACE
+    [{'title': 'Never Said I Was an Angel',
+      'author': 'pauline'}]
+
+|
+| (and since we're in Nashville,
+| cue obscure musical reference ;)
 
 
 slide
@@ -519,6 +541,12 @@ slide
 slide
 -----
 
+*How do I build systems I can change confidently?*
+
+
+slide
+-----
+
 *How do I organize larger systems?*
 
 
@@ -732,9 +760,9 @@ slide
 
 Another problem
 
-    | *Given a root path, return a list of* **sets**
-    | *each set containing* **all paths**
-    | *that have* **identical contents**
+    | Given a root path, return a *list of sets*
+    | each set containing *all paths*
+    | that have **identical contents**
 
 
 slide
@@ -981,9 +1009,9 @@ slide
 slide
 -----
 
-    | *Given a root path, return a list of* **sets**
-    | *each set containing* **all paths**
-    | *that have* **identical contents**
+    | Given a root path, return a *list of sets*
+    | each set containing *all paths*
+    | that have **identical contents**
 
 
 slide
@@ -1183,8 +1211,11 @@ mechanism
 slide
 -----
 
-**Data and Transforms**: recast this to operate on
-an annotated transform
+**Data and Transforms**
+
+| recast logic to operate on
+| an *annotated transform*
+| of the data
 
 
 slide
@@ -1225,7 +1256,8 @@ slide
 slide
 -----
 
-Policy is a *pure function* that operates on **simple data values**
+| Policy is a *pure function*
+| that operates on **simple data values**
 
 .. code-block:: python
 
@@ -1246,13 +1278,13 @@ Policy is easily tested with simple data
 .. code-block:: python
 
     def test_simple_difference():
-        annotated_paths = [('0xabcd', 'a.jpg'), ('0xdead', 'b.jpg')]
+        annotated_paths = [('0xdead', 'a.jpg'), ('0xbeef', 'b.jpg')]
 
         assert 2 == len(paths_with_same_hash(annotated_paths))
 
 
     def test_simple_match():
-        annotated_paths = [('0000', 'a.jpg'), ('0000', 'b.jpg')]
+        annotated_paths = [('0000', 'b.jpg'), ('0000', 'also_b.jpg')]
 
         assert 1 == len(paths_with_same_hash(annotated_paths))
 
@@ -1488,7 +1520,7 @@ Filter applications to the correct type:
 
 .. code-block:: python
 
-    def by_type(applications, exam_type):
+    def of_type(applications, exam_type):
         return [application for application in applications
                 if application.exam_type == exam_type]
 
@@ -1496,9 +1528,11 @@ Filter applications to the correct type:
 slide
 -----
 
+Connect the pipeline
+
 .. code-block:: python
 
-    prior_apps = not_withdrawn(by_type(user.applications, exam_type))
+    prior_apps = not_withdrawn(of_type(user.applications, exam_type))
     fail_dates = sorted(app.exam_date for app in prior_apps)
 
 
@@ -1517,7 +1551,7 @@ slide
 
 .. code-block:: python
 
-    prior_apps = not_withdrawn(by_type(user.applications, exam_type))
+    prior_apps = not_withdrawn(of_type(user.applications, exam_type))
     fail_dates = sorted(app.exam_date for app in prior_apps)
 
 
@@ -1534,7 +1568,7 @@ slide
 
 .. code-block:: python
 
-    prior_apps = not_withdrawn(by_type(user.applications, exam_type))
+    prior_apps = not_withdrawn(of_type(user.applications, exam_type))
     fail_dates = sorted(app.exam_date for app in prior_apps)
 
 
@@ -1715,6 +1749,18 @@ slide
 | are passed across the boundaries.”
 
 
+This is the key!
+----------------
+
+
+slide
+-----
+
+| “The important thing is
+| that *isolated, simple* data structures
+| are passed across the boundaries.”
+
+
 slide
 -----
 
@@ -1764,9 +1810,9 @@ slide
         agreement = EndUserAgreement.get(id)
 
         if agreement.start_date <= date.today():
-            return {'success': False, 'msg': '<already active msg>'}
+            return {'success': False, 'msg': 'Error: already active'}
         if EndUserAgreement.query.count() == 1:
-            return {'success': False, 'msg': '<only agreement msg>'}
+            return {'success': False, 'msg': 'Error: only agreement'}
 
         # In order to ensure there are no gaps in agreements, …
         previous_agreement = self.get_previous(agreement.start_date, id)
@@ -1806,7 +1852,7 @@ Check that it is not yet active
         #                                                              …
 
         if agreement.start_date <= date.today():
-            return {'success': False, 'msg': '<already active msg>'}
+            return {'success': False, 'msg': 'Error: already active'}
 
         #                                                              …
 
@@ -1824,7 +1870,7 @@ and that it is not the only agreement
         #                                                              …
 
         if EndUserAgreement.query.count() == 1:
-            return {'success': False, 'msg': '<only agreement msg>'}
+            return {'success': False, 'msg': 'Error: only agreement'}
 
         #                                                              …
 
@@ -1894,9 +1940,9 @@ slide
         agreement = EndUserAgreement.get(id)
 
         if agreement.start_date <= date.today():
-            return {'success': False, 'msg': '<already active msg>'}
+            return {'success': False, 'msg': 'Error: already active'}
         if EndUserAgreement.query.count() == 1:
-            return {'success': False, 'msg': '<only agreement msg>'}
+            return {'success': False, 'msg': 'Error: only agreement'}
 
         # In order to ensure there are no gaps in agreements, …
         previous_agreement = self.get_previous(agreement.start_date, id)
@@ -1983,6 +2029,12 @@ slide
 slide
 -----
 
+Pass *simple data* between the two
+
+
+slide
+-----
+
 .. code-block:: python
 
     @expose()
@@ -1991,9 +2043,9 @@ slide
         agreement = EndUserAgreement.get(id)
 
         if agreement.start_date <= date.today():
-            return {'success': False, 'msg': '<already active msg>'}
+            return {'success': False, 'msg': 'Error: already active'}
         if EndUserAgreement.query.count() == 1:
-            return {'success': False, 'msg': '<only agreement msg>'}
+            return {'success': False, 'msg': 'Error: only agreement'}
 
         # In order to ensure there are no gaps in agreements, …
         previous_agreement = self.get_previous(agreement.start_date, id)
@@ -2013,6 +2065,41 @@ slide
 slide
 -----
 
+Step 0: EAFP
+
+
+slide
+-----
+
+.. code-block:: python
+
+    @expose()
+    @identity.require(identity.has_permission('agreement_delete'))
+    @error_handler(handle_REST_error)
+    def delete(self, id):
+        agreement = EndUserAgreement.get(id)
+
+        if agreement.start_date <= date.today():
+            raise ValueError('Already active')
+        if EndUserAgreement.query.count() == 1:
+            raise ValueError('Only agreement')
+
+        # In order to ensure there are no gaps in agreements, …
+        previous_agreement = self.get_previous(agreement.start_date, id)
+        if previous_agreement:
+            previous_agreement.end_date = agreement.end_date
+        elif agreement.end_date:
+            # If the deleted agreement was the first one, then we find…
+            next_agreement = self.get_next(agreement.start_date, id)
+            if next_agreement:
+                next_agreement.start_date = agreement.start_date
+
+        agreement.delete()
+
+
+slide
+-----
+
 Step 1: pull out eveything that isn't dispatch
 
 
@@ -2023,9 +2110,9 @@ slide
 
     @expose()
     @identity.require(identity.has_permission('agreement_delete'))
+    @error_handler(handle_REST_error)
     def delete(self, id):
-        success, msg = agreements.delete(id)
-        return {'success': success, 'msg': msg}
+        agreements.delete(id)
 
 
 slide
@@ -2049,9 +2136,12 @@ slide
 
     @expose()
     @identity.require(identity.has_permission('agreement_delete'))
+    @error_handler(handle_REST_error)
     def delete(self, id):
-        success, msg = agreements.delete(id)
-        return {'success': success, 'msg': msg}
+        agreements.delete(id)
+
+
+(error handler left as an exercise ;)
 
 
 slide
@@ -2067,8 +2157,8 @@ It no longer has to change with
 
 | the Agreement model
 | the persistence subsystem
-| the removal rules
-| the gap adjustment rules
+| the delete & gap adjustment rules
+| the error reporting requirements
 
 
 slide
@@ -2078,9 +2168,9 @@ slide
 
     @expose()
     @identity.require(identity.has_permission('agreement_delete'))
+    @error_handler(handle_REST_error)
     def delete(self, id):
-        success, msg = agreements.delete(id)
-        return {'success': success, 'msg': msg}
+        agreements.delete(id)
 
 
 slide
@@ -2101,8 +2191,8 @@ slide
 What does it look like?
 
 
-Step 2: ``is_removable()``
---------------------------
+Step 2: ``assert_removable()``
+------------------------------
 
 .. code-block:: python
 
@@ -2112,26 +2202,26 @@ Step 2: ``is_removable()``
         agreement = EndUserAgreement.get(id)
         all_agreements = EndUserAgreement.query
 
-        removable, reason = is_removable(agreement, all_agreements)
+        assert_removable(agreement, all_agreements)
 
         # date adjustments temporariliy elided…
 
-        if removable:
-            agreement.delete()
-
-        return removable, reason
+        agreement.delete()
 
 
 slide
 -----
 
-Notice the pivot
+Notice the divison of labor
 
 
 slide
 -----
 
-``agreement.delete()`` is a mutation applied to a persisted (dependent) object
+``agreements.delete()``
+
+| gathers the necessary data
+| and performs the mutation
 
 
 slide
@@ -2143,39 +2233,19 @@ whereas
 slide
 -----
 
-``is_removable()`` is logic that can be applied to a simple data structure
+``assert_removable()``
+
+| is logic that *decides* if the agreement
+| can be deleted
 
 
 slide
 -----
 
-Build systems around
+FauxO Litmus test
 
-**functional transforms**
-
-of *simple values* and *data structures*
-
-
-slide
------
-
-What do we mean by
-
-*simple values* and *data structures*
-
-
-slide
------
-
-* atomic types: ``str``, ``int``, …
-* structs or records
-* collections of same: ``list``, ``set``, ``dict``
-
-
-slide
------
-
-Litmus test: ``is_removable()`` should work on a plain, non-ORM object
+| ``assert_removable()`` should work on
+| a plain, non-ORM object
 
 
 slide
@@ -2194,15 +2264,13 @@ slide
 
     # agreements_core.py                               (functional core)
 
-    >>> def is_removable(agreement, all_agreements):
-    ...     assert agreement and agreement in all_agreements
-    ...
-    ...     if agreement.start_date <= date.today():
-    ...         return False, 'already_active'
-    ...     elif len(all_agreements) <= 1:
-    ...         return False, 'only_agreement'
-    ...     else:
-    ...         return True, None
+    >>> def assert_removable(agreement, all_agreements):
+    ...     assert agreement and agreement in all_agreements, \
+    ...         'Invalid agreement'
+    ...     assert agreement.start_date > date.today(), \
+    ...         'Agreement already active'
+    ...     assert len(all_agreements) > 1, \
+    ...         'Cannot remove only agreement'
 
 
 slide
@@ -2210,11 +2278,14 @@ slide
 
 .. code-block:: python
 
-    >>> from datetime import date
-    >>> only_agreement = Agreement(date.today(), None)
-    >>> removable, status = is_removable(only_agreement, [only_agreement])
-    >>> removable
-    False
+    >>> from datetime import date, timedelta
+    >>> tomorrow = date.today() + timedelta(1)
+    >>> only_agreement = Agreement(tomorrow, None)
+    >>> assert_removable(only_agreement, [only_agreement])
+    Traceback (most recent call last):
+        ...
+    AssertionError: Cannot remove only agreement
+
 
 
 slide
@@ -2225,43 +2296,22 @@ slide
     >>> really_planning_ahead = date(3025, 1, 1)
     >>> current_agreement = Agreement(date.today(), really_planning_ahead)
     >>> next_agreement = Agreement(really_planning_ahead, None)
-    >>> removable, status = is_removable(next_agreement, [current_agreement,
-    ...                                                   next_agreement])
-    >>> removable
-    True
+    >>> assert_removable(next_agreement, [current_agreement, next_agreement])
 
-
-slide
------
-
-So where were we?
-
-
-slide
------
+|
 
 .. code-block:: python
 
-    # agreements.py (step 2)                          (imperative shell)
-
-    def delete(assignment_id):
-        agreement = EndUserAgreement.get(id)
-        all_agreements = EndUserAgreement.query
-
-        removable, reason = is_removable(agreement, all_agreements)
-
-        # date adjustments temporariliy elided…
-
-        if removable:
-            agreement.delete()
-
-        return removable, reason
+    >>> assert_removable(current_agreement, [current_agreement, next_agreement])
+    Traceback (most recent call last):
+        ...
+    AssertionError: Agreement already active
 
 
 slide
 -----
 
-With the date adjustments
+Next: date adjustments
 
 .. code-block:: python
 
@@ -2269,7 +2319,7 @@ With the date adjustments
         agreement = EndUserAgreement.get(id)
         all_agreements = EndUserAgreement.query
 
-        removable, reason = is_removable(agreement, all_agreements)
+        assert_removable(agreement, all_agreements)
 
         # In order to ensure there are no gaps in agreements, …
         previous_agreement = self.get_previous(agreement.start_date, id)
@@ -2281,10 +2331,8 @@ With the date adjustments
             if next_agreement:
                 next_agreement.start_date = agreement.start_date
 
-        if removable:
-            agreement.delete()
+        agreement.delete()
 
-        return removable, reason
 
 slide
 -----
@@ -2312,19 +2360,16 @@ slide
 
 .. code-block:: python
 
-    # agreements.py (step 3)                          (imperative shell)
+    # agreements.py (step 4)                          (imperative shell)
 
     def delete(assignment_id):
         agreement = EndUserAgreement.get(id)
         all_agreements = EndUserAgreement.query
 
-        removable, reason = is_removable(agreement, all_agreements)
+        assert_removable(agreement, all_agreements)
 
-        if removable:
-            adjust_dates_for_delete(agreement)
-            agreement.delete()
-
-        return removable, reason
+        adjust_dates_for_delete(agreement)
+        agreement.delete()
 
 
 slide
@@ -2332,14 +2377,15 @@ slide
 
 .. code-block:: python
 
-    # agreements.py (step 3)                          (imperative shell)
+    # agreements.py (step 4)                          (imperative shell)
 
     def adjust_dates_for_delete(agreement):
-        previous_agreement = self.get_previous(agreement.start_date,
-                                               agreement.id)
-        next_agreement = self.get_next(agreement.start_date, id)
+        previous = self.get_previous(agreement.start_date,
+                                     agreement.id)
+        next = self.get_next(agreement.start_date, id)
 
-        target_agreement, updated_dates = get_agreement_update(previous, agreement, next)
+        target_agreement, updated_dates = \
+            get_agreement_update(previous, agreement, next)
         target_agreement.update(updated_dates)
 
 
@@ -2348,7 +2394,7 @@ slide
 
 .. code-block:: python
 
-    # agreements_core.py (step 3)                      (functional core)
+    # agreements_core.py (step 4)                      (functional core)
 
     def get_agreement_update(previous, agreement, next)
         if previous_agreement:
@@ -2389,9 +2435,9 @@ slide
         agreement = EndUserAgreement.get(id)
 
         if agreement.start_date <= date.today():
-            return {'success': False, 'msg': '<already active msg>'}
+            return {'success': False, 'msg': 'Error: already active'}
         if EndUserAgreement.query.count() == 1:
-            return {'success': False, 'msg': '<only agreement msg>'}
+            return {'success': False, 'msg': 'Error: only agreement'}
 
         # In order to ensure there are no gaps in agreements, …
         previous_agreement = self.get_previous(agreement.start_date, id)
@@ -2430,15 +2476,14 @@ Our functional core
 
 .. code-block:: python
 
-    >>> def is_removable(agreement, all_agreements):
-    ...     assert agreement and agreement in all_agreements
-    ...
-    ...     if agreement.start_date <= date.today():
-    ...         return False, 'already_active'
-    ...     elif len(all_agreements) <= 1:
-    ...         return False, 'only_agreement'
-    ...     else:
-    ...         return True, None
+
+    def assert_removable(agreement, all_agreements):
+        assert agreement and agreement in all_agreements, \
+            'Invalid agreement'
+        assert agreement.start_date > date.today(), \
+            'Agreement already active'
+        assert len(all_agreements) > 1, \
+            'Cannot remove only agreement'
 
     def get_agreement_update(previous, agreement, next)
         if previous_agreement:
@@ -2462,15 +2507,14 @@ slide
 
 .. code-block:: python
 
-    >>> def is_removable(agreement, all_agreements):
-    ...     assert agreement and agreement in all_agreements
-    ...
-    ...     if agreement.start_date <= date.today():
-    ...         return False, 'already_active'
-    ...     elif len(all_agreements) <= 1:
-    ...         return False, 'only_agreement'
-    ...     else:
-    ...         return True, None
+
+    def assert_removable(agreement, all_agreements):
+        assert agreement and agreement in all_agreements, \
+            'Invalid agreement'
+        assert agreement.start_date > date.today(), \
+            'Agreement already active'
+        assert len(all_agreements) > 1, \
+            'Cannot remove only agreement'
 
     def get_agreement_update(previous, agreement, next)
         if previous_agreement:
@@ -2521,9 +2565,9 @@ Our HTTP endpoint
 
     @expose()
     @identity.require(identity.has_permission('agreement_delete'))
+    @error_handler(handle_REST_error)
     def delete(self, id):
-        success, msg = agreements.delete(id)
-        return {'success': success, 'msg': msg}
+        agreements.delete(id)
 
 
 slide
@@ -2537,13 +2581,10 @@ Our imperative shell
         agreement = EndUserAgreement.get(id)
         all_agreements = EndUserAgreement.query
 
-        removable, reason = is_removable(agreement, all_agreements)
+        assert_removable(agreement, all_agreements)
 
-        if removable:
-            adjust_dates_for_delete(agreement)
-            agreement.delete()
-
-        return removable, reason
+        adjust_dates_for_delete(agreement)
+        agreement.delete()
 
 
 slide
@@ -2554,23 +2595,24 @@ Imperative shell (cont.)
 
 .. code-block:: python
 
-    def adjust_dates(minimum_start_date=None):
-        all_agreements = EndUserAgreement.query.order_by('start_date')
+    def adjust_dates_for_delete(agreement):
+        previous = self.get_previous(agreement.start_date,
+                                     agreement.id)
+        next = self.get_next(agreement.start_date, id)
 
-        for agreement, start, end in mind_the_gap(all_agreements,
-                                                  minimum_start_date):
-            agreement.start_date = start
-            agreement.end_date = end
+        target_agreement, updated_dates = \
+            get_agreement_update(previous, agreement, next)
+        target_agreement.update(updated_dates)
 
 
 slide
 -----
 
-This example is from a
+Last examples from a
 
 *real system*
 
-that serves
+that really serves
 
 *real HTML*!
 
@@ -2578,11 +2620,37 @@ that serves
 slide
 -----
 
-No ivory tower constructions here
+slide
+-----
+
+Thoughts for systems
 
 
 slide
 -----
+
+Connect shells to each other
+
+.. image:: shells.png
+
+
+slide
+-----
+
+Or to existing legacy subsystems
+
+.. image:: legacy.png
+
+
+slide
+-----
+
+Pluggable components
+
+
+slide
+-----
+
 
 slide
 -----

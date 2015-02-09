@@ -7,8 +7,11 @@ do
         --link-stylesheet \
         --syntax-highlight=short \
         clean_and_green.rst | \
-    sed 's/<body>/<body class="reading-mode">/;s/<h1>slide<\/h1>//;s/.*BLANKLINE.*//' > \
+    sed 's/<body>/<body class="reading-mode">/;s/<h1>slide<\/h1>//;s/.*BLANKLINE.*//;s/# doctest.*//;' > \
     clean_and_green.html
+
+    dot -Tpng shells.dot > shells.png
+    dot -Tpng legacy.dot > legacy.png
 
     # Reload
     xdotool search --class --onlyvisible firefox key r
